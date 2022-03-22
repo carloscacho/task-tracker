@@ -6,21 +6,21 @@
       :icon-button='"fas fa-play"'
       :action="iniciar"
       :disable-button="timerRunner"
-      :title="'iniciar'"
+      :title='"iniciar"'
     />
     <timer-button
-      :icon-button="'fas fa-stop'"
+      :icon-button='"fas fa-stop"'
       :action="finalizar"
       :disable-button="!timerRunner"
       :title='"parar"'
     />
-    
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import StopwatchView from "./Stopwatch.vue";
+import StopwatchView from "./StopwatchView.vue";
 import TimerButton from "./TimerButton.vue";
 
 export default defineComponent({
