@@ -4,13 +4,13 @@
 
     <timer-button
       :icon-button='"fas fa-play"'
-      :action="iniciar"
+      @action="iniciar"
       :disable-button="timerRunner"
       :title='"iniciar"'
     />
     <timer-button
       :icon-button='"fas fa-stop"'
-      :action="finalizar"
+      @action="finalizar"
       :disable-button="!timerRunner"
       :title='"parar"'
     />

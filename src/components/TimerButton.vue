@@ -1,7 +1,7 @@
 <template>
-  <button class="button" @click="action" :disabled="disable - button">
+  <button class="button" @click="action" :disabled="disableButton">
     <span class="icon">
-      <i :class="icon - button"></i>
+      <i :class="iconButton"></i>
     </span>
     <span>{{ title }}</span>
   </button>
@@ -12,6 +12,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "TimerButton",
+  emits: ['action'],
+  methods: {
+    action(): void {
+      this.$emit('action')
+    }
+  },
   props: {
     disableButton: {
       type: Boolean,
@@ -22,9 +28,7 @@ export default defineComponent({
     },
     iconButton: {
       type: String,
-    },
-    action: {
-      type: Function,
+      default: "",
     },
   },
 });

@@ -27,6 +27,7 @@ import TimerMachine from "./TimerMachine.vue"
 
 export default defineComponent({
   name: "FormTask",
+  emits: ['onSalveTask'],
   components: {
     TimerMachine
   },
@@ -37,9 +38,14 @@ export default defineComponent({
   },
   methods: {
     finishTask(timeStop: number): void{
-      console.log(this.description+ " tempo: " + timeStop)
+      
+      this.$emit('onSalveTask', {
+        timerInSeconds: timeStop,
+        description: this.description
+      })
       this.description = ''
-    }
+    },
+
   }
 });
 </script>
