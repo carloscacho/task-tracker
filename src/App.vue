@@ -8,6 +8,9 @@
       <FormTask @onSalveTask="saveTask"/>
       <div class="taskList">
         <TaskItem v-for="(item, index) in listTask" :key="index" :item="item"/>
+        <card-text v-if="isEmptyList">
+          "Não há nenhuma tarefa finalizada"
+        </card-text>
       </div>
     </div>
   </main>
@@ -20,6 +23,7 @@ import FormTask from "./components/FormTask.vue";
 import TaskItem from "./components/Task.vue";
 
 import ITask from "./interfaces/ITask"
+import CardText from "./components/CardText.vue";
 
 
 export default defineComponent({
@@ -27,11 +31,17 @@ export default defineComponent({
   components: {
     SideBar,
     FormTask,
-    TaskItem
+    TaskItem,
+    CardText
   },
   data() {
     return {
       listTask: [] as ITask[]
+    }
+  },
+  computed: {
+    isEmptyList(): boolean{
+      return this.listTask.length === 0
     }
   },
   methods: {
