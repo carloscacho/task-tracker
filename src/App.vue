@@ -4,7 +4,7 @@
     <div class="column is-one-quarter">
       <SideBar />
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter content">
       <FormTask @onSalveTask="saveTask"/>
       <div class="taskList">
         <TaskItem v-for="(item, index) in listTask" :key="index" :item="item"/>
@@ -55,5 +55,18 @@ export default defineComponent({
 <style>
 .taskList{
   padding: 2.5rem;
+}
+
+main {
+  --bg-primary: rgb(240, 240, 240);
+  --text-primary: rgb(15, 15, 15);
+}
+main.dark {
+  --bg-primary: #2d2d42;
+  --text-primary: #ddd;
+}
+.content{
+  background-color: var(--bg-primary);
+  color: var(--text-primary)
 }
 </style>

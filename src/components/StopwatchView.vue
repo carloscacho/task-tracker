@@ -1,6 +1,6 @@
 <template>
   <section>
-    <strong>
+    <strong class="display">
       {{ timer }}
     </strong>
   </section>
@@ -26,3 +26,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+  .display{
+    color: var(--text-primary);
+  }
+</style>

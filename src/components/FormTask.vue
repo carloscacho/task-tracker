@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formtime">
     <div class="columns">
       <div
         class="column is-8"
@@ -49,3 +49,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style>
+  .formtime{
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+</style>
