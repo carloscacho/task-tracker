@@ -10,6 +10,12 @@
     />
     <timer-button
       :icon-button='"fas fa-stop"'
+      @action="pausar"
+      :disable-button="!timerRunner"
+      :title='"pause"'
+    />
+    <timer-button
+      :icon-button='"fas fa-stop"'
       @action="finalizar"
       :disable-button="!timerRunner"
       :title='"parar"'
@@ -45,6 +51,11 @@ export default defineComponent({
       }, 1000);
       this.timerRunner = true;
       console.log("iniciando");
+    },
+    pausar() {
+      this.timerRunner = false;
+      console.log("pausado");
+      clearInterval(this.timerRef);
     },
     finalizar() {
       this.timerRunner = false;
