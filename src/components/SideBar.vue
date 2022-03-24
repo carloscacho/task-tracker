@@ -4,17 +4,30 @@
     <h1>
       <img src="../assets/logo.png" alt="logo do site" />
     </h1>
+    <div>
       <i @click="changeModeLight" class="fa-solid fa-sun"></i>
       <i @click="changeMode" :class="buttonIcon"></i>
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
+    </div>
+    <total-timer :total="total"/>
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import TotalTimer from "./TotalTimer.vue";
+
 export default defineComponent({
   name: "SideBar",
   emits: ["onChangeMode"],
+  props:{
+    total: {
+      type: Number
+    }
+  },
+  components: {
+    TotalTimer,
+  },
   data() {
     return {
       isDarkMode: false,
@@ -52,7 +65,7 @@ header {
   height: 100vh;
   text-align: center;
 }
-i{
+i {
   font-size: 30px;
   margin: 10px;
   color: aliceblue;

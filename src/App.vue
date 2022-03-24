@@ -2,7 +2,7 @@
 <template>
   <main class="columns is-gapless is-multiline" :class="{'dark': isDarkMode}">
     <div class="column is-one-quarter">
-      <SideBar @onChangeMode="changeMode" />
+      <SideBar @onChangeMode="changeMode" :total="totalTimer" />
     </div>
     <div class="column is-three-quarter content">
       <FormTask @onSalveTask="saveTask" />
@@ -37,6 +37,7 @@ export default defineComponent({
     return {
       listTask: [] as ITask[],
       isDarkMode: false,
+      totalTimer: 0
     };
   },
   computed: {
@@ -47,6 +48,8 @@ export default defineComponent({
   methods: {
     saveTask(t: ITask) {
       this.listTask.push(t);
+      this.totalTimer += t.timerInSeconds;
+      console.log("change value: ", this.totalTimer)
     },
     changeMode(isDarkMode: boolean) {
       this.isDarkMode = isDarkMode;
