@@ -1,13 +1,13 @@
 /* eslint-disable */
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{'dark': isDarkMode}">
     <div class="column is-one-quarter">
-      <SideBar />
+      <SideBar @onChangeMode="changeMode" />
     </div>
     <div class="column is-three-quarter content">
-      <FormTask @onSalveTask="saveTask"/>
+      <FormTask @onSalveTask="saveTask" />
       <div class="taskList">
-        <TaskItem v-for="(item, index) in listTask" :key="index" :item="item"/>
+        <TaskItem v-for="(item, index) in listTask" :key="index" :item="item" />
         <card-text v-if="isEmptyList">
           "Não há nenhuma tarefa finalizada"
         </card-text>
@@ -22,9 +22,8 @@ import SideBar from "./components/SideBar.vue";
 import FormTask from "./components/FormTask.vue";
 import TaskItem from "./components/Task.vue";
 
-import ITask from "./interfaces/ITask"
+import ITask from "./interfaces/ITask";
 import CardText from "./components/CardText.vue";
-
 
 export default defineComponent({
   name: "App",
@@ -32,28 +31,32 @@ export default defineComponent({
     SideBar,
     FormTask,
     TaskItem,
-    CardText
+    CardText,
   },
   data() {
     return {
-      listTask: [] as ITask[]
-    }
+      listTask: [] as ITask[],
+      isDarkMode: false,
+    };
   },
   computed: {
-    isEmptyList(): boolean{
-      return this.listTask.length === 0
-    }
+    isEmptyList(): boolean {
+      return this.listTask.length === 0;
+    },
   },
   methods: {
-    saveTask(t: ITask){
-      this.listTask.push(t)
-    }
-  }
+    saveTask(t: ITask) {
+      this.listTask.push(t);
+    },
+    changeMode(isDarkMode: boolean) {
+      this.isDarkMode = isDarkMode;
+    },
+  },
 });
 </script>
 
 <style>
-.taskList{
+.taskList {
   padding: 2.5rem;
 }
 
@@ -65,8 +68,8 @@ main.dark {
   --bg-primary: #2d2d42;
   --text-primary: #ddd;
 }
-.content{
+.content {
   background-color: var(--bg-primary);
-  color: var(--text-primary)
+  color: var(--text-primary);
 }
 </style>
