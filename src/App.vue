@@ -64,14 +64,14 @@ export default defineComponent({
 }
 
 main {
-  --bg-primary: rgb(240, 240, 240);
-  --bg-secondary: rgb(255, 255, 255);
+  --bg-primary: rgb(255, 255, 255);
+  --bg-secondary: rgb(197, 213, 248);
   --text-primary: rgb(15, 15, 15);
 }
 main.dark {
   --bg-primary: #2d2d42;
-  --bg-secondary: rgb(113, 157, 250);
-  --text-primary: #ddd;
+  --bg-secondary: rgb(98, 147, 253);
+  --text-primary: rgb(240, 240, 240);
 }
 .content {
   background-color: var(--bg-primary);

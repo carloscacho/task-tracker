@@ -1,6 +1,6 @@
 <template>
   <card-text>
-    <stopwatch-view :timerInSeconds="total" />
+    <stopwatch-view :timerInSeconds="total" :msg="msg" />
   </card-text>
 </template>
 
@@ -14,6 +14,10 @@ export default defineComponent({
   props: {
     total: {
       type: Number
+    },
+    msg: {
+      type: String,
+      default: ""
     }
   },
   components: {

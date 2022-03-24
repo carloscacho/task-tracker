@@ -1,32 +1,43 @@
 /* eslint-disable */
 <template>
+  <div class="isSmart">
+    <HeaderPhone @onChangeModeHeader="changeModeHeader" />
+    <header>
+      <p style="color:white"></p>
+    </header>
+    <total-timer msg="Cronometro geral " :total="total" />
+  </div>
   <header>
-    <h1>
+    <h1 class="isNotSmart">
       <img src="../assets/logo.png" alt="logo do site" />
     </h1>
-    <div>
+    <div class="isNotSmart">
       <i @click="changeModeLight" class="fa-solid fa-sun"></i>
       <i @click="changeMode" :class="buttonIcon"></i>
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
     </div>
-    <total-timer :total="total"/>
+    <div class="isNotSmart">
+      <total-timer :total="total" />
+    </div>
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import TotalTimer from "./TotalTimer.vue";
+import HeaderPhone from "./HeaderPhone.vue";
 
 export default defineComponent({
   name: "SideBar",
   emits: ["onChangeMode"],
-  props:{
+  props: {
     total: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   components: {
     TotalTimer,
+    HeaderPhone,
   },
   data() {
     return {
@@ -41,6 +52,10 @@ export default defineComponent({
     },
   },
   methods: {
+    changeModeHeader(darkMode: boolean) {
+      this.isDarkMode = darkMode;
+      this.$emit("onChangeMode", this.isDarkMode);
+    },
     changeMode() {
       this.isDarkMode = !this.isDarkMode;
       this.$emit("onChangeMode", this.isDarkMode);
@@ -70,10 +85,31 @@ i {
   margin: 10px;
   color: aliceblue;
 }
+@media only screen and (min-width: 768px) {
+.isSmart {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .isNotSmart {
+    visibility: visible;
+  }
+}
+
+
 @media only screen and (max-width: 768px) {
   header {
-    padding: 2.5rem;
+    padding: 0.5rem;
     height: auto;
+  }
+
+  .isSmart {
+    visibility: visible;
+  }
+
+  .isNotSmart {
+    visibility: hidden;
+    height: 0;
   }
 }
 </style>

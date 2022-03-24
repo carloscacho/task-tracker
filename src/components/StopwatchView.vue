@@ -1,6 +1,7 @@
 <template>
   <section>
-    <strong class="display">
+    <strong class="display isFlex isFlex-direction-row">
+      <div>{{ msg }}</div>
       {{ timer }}
     </strong>
   </section>
@@ -15,6 +16,10 @@ export default defineComponent({
     timerInSeconds: {
       type: Number,
       default: 0
+    },
+    msg: {
+      type: String,
+      default: ""
     }
   },
   computed: {
