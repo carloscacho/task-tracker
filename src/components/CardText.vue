@@ -15,4 +15,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.card {
+  background: var(--bg-secondary);
+}
 </style>

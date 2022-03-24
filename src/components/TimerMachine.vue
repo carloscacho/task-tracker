@@ -6,18 +6,21 @@
       :icon-button='"fas fa-play"'
       @action="iniciar"
       :disable-button="timerRunner"
+      color="is-success"
       :title='"iniciar"'
     />
     <timer-button
-      :icon-button='"fas fa-stop"'
+      :icon-button='"fas fa-pause"'
       @action="pausar"
       :disable-button="!timerRunner"
+      color="is-warning"
       :title='"pause"'
     />
     <timer-button
       :icon-button='"fas fa-stop"'
       @action="finalizar"
       :disable-button="!timerRunner"
+      color="is-danger"
       :title='"parar"'
     />
 

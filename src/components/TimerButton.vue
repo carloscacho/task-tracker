@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="action" :disabled="disableButton">
+  <button :class="'button ' + color" @click="action" :disabled="disableButton">
     <span class="icon">
       <i :class="iconButton"></i>
     </span>
@@ -30,6 +30,10 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    color: {
+      type: String,
+      default: "",
+    }
   },
 });
 </script>

@@ -65,10 +65,12 @@ export default defineComponent({
 
 main {
   --bg-primary: rgb(240, 240, 240);
+  --bg-secondary: rgb(255, 255, 255);
   --text-primary: rgb(15, 15, 15);
 }
 main.dark {
   --bg-primary: #2d2d42;
+  --bg-secondary: rgb(113, 157, 250);
   --text-primary: #ddd;
 }
 .content {
