@@ -62,7 +62,11 @@ export default defineComponent({
 .taskList {
   padding: 2.5rem;
 }
-
+@media only screen and (max-width: 768px) {
+  .taskList {
+    height: calc(100vh - 52px - 32px - 96px - 144px - 1.5rem);
+  }
+}
 main {
   --bg-primary: rgb(255, 255, 255);
   --bg-secondary: rgb(197, 213, 248);
