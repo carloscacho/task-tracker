@@ -2,12 +2,12 @@
 <template>
   <main class="columns is-gapless is-multiline" :class="{'dark': isDarkMode}">
     <div class="column is-one-quarter">
-      <SideBar @onChangeMode="changeMode" :total="totalTimer" />
+      <SideBar @onChangeMode="changeMode" />
     </div>
     <div class="column is-three-quarter content">
       <FormTask @onSalveTask="saveTask" />
       <div class="taskList">
-        <TaskItem v-for="(item, index) in listTask" :key="index" :item="item" />
+        <TaskItem v-for="(item, index) in getItens" :key="index" :item="item" />
         <card-text v-if="isEmptyList">
           <span class="textMode"> "Não há nenhuma tarefa finalizada" </span> 
         </card-text>
@@ -39,22 +39,21 @@ export default defineComponent({
   data() {
     return {
       store: useStore(),
-      listTask: [] as ITask[],
-      isDarkMode: false,
-      totalTimer: 0
+      isDarkMode: false
     };
   },
   computed: {
     isEmptyList(): boolean {
-      return this.listTask.length === 0;
+      return this.$store.state.data.length === 0;
     },
+    getItens(): ITask[] {
+      return this.$store.state.data
+    }
   },
   methods: {
     saveTask(t: ITask) {
-      this.listTask.push(t);
-      this.totalTimer += t.timerInSeconds;
+      this.$store.dispatch('addItem', {item:t})
       this.$store.dispatch('incrementTotal', {time: t.timerInSeconds})
-      console.log("change value: ", this.totalTimer)
     },
     changeMode(isDarkMode: boolean) {
       this.isDarkMode = isDarkMode;

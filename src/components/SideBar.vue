@@ -47,11 +47,6 @@ import { useStore } from "../store";
 export default defineComponent({
   name: "SideBar",
   emits: ["onChangeMode"],
-  props: {
-    total: {
-      type: Number,
-    },
-  },
   components: {
     TotalTimer,
     HeaderPhone,
