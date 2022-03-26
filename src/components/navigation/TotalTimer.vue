@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CardText from "./TaskList/CardText.vue";
-import StopwatchView from "./formView/StopwatchView.vue";
+import CardText from "../Utils/CardText.vue";
+import StopwatchView from "../formView/StopwatchView.vue";
 
 export default defineComponent({
   name: "TotalTimer",

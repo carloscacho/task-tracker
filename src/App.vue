@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <main class="columns is-gapless is-multiline" :class="{'dark': isDarkMode}">
     <div class="column is-one-quarter">
@@ -24,7 +23,7 @@ import FormTask from "./components/formView/FormTask.vue";
 import TaskItem from "./components/TaskList/Task.vue";
 
 import ITask from "./interfaces/ITask";
-import CardText from "./components/TaskList/CardText.vue";
+import CardText from "./components/Utils/CardText.vue";
 
 
 

@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div class="isSmart">
     <HeaderPhone @onChangeModeHeader="changeModeHeader" />
@@ -23,7 +22,7 @@
   </div>
   <header>
     <h1 class="isNotSmart">
-      <img src="../assets/logo.png" alt="logo do site" />
+      <img src="../../assets/logo.png" alt="logo do site" />
     </h1>
     <div class="isNotSmart">
       <i @click="changeModeLight" class="fa-solid fa-sun"></i>
@@ -39,9 +38,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TotalTimer from "../TotalTimer.vue";
-import HeaderPhone from "../formView/HeaderPhone.vue";
-import CardText from "../TaskList/CardText.vue";
+import TotalTimer from "./TotalTimer.vue";
+import HeaderPhone from "./HeaderPhone.vue";
+import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
 
 export default defineComponent({
