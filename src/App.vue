@@ -53,7 +53,7 @@ export default defineComponent({
     saveTask(t: ITask) {
       this.listTask.push(t);
       this.totalTimer += t.timerInSeconds;
-      this.$store.dispatch({type:'incrementTotal', time: t.timerInSeconds})
+      this.$store.dispatch('incrementTotal', {time: t.timerInSeconds})
       console.log("change value: ", this.totalTimer)
     },
     changeMode(isDarkMode: boolean) {

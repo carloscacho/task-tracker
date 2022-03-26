@@ -5,6 +5,7 @@
     <div class="likeHeader"></div>
     <div class="timerView">
       <div :class="{ invisible: !visibilityTotal }">
+        <button class="button is-success mb-2" @click="initDay">Iniciar o dia</button>
         <total-timer msg="Contador geral " :total="getTotalTimer" />
       </div>
       <div :class="{ invisible: visibilityTotal }">
@@ -30,6 +31,7 @@
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
     </div>
     <div class="isNotSmart">
+      <button class="button is-success m-4" @click="initDay">Iniciar o dia</button>
       <total-timer :total="getTotalTimer" />
     </div>
   </header>
@@ -72,11 +74,14 @@ export default defineComponent({
       return this.visibilityTotal ? "fa fa-eye" : "fa fa-eye-slash";
     },
     getTotalTimer() {
-      // return this.$store.state.totalTimer
-      return this.total
+      return this.$store.state.totalTimer
+      // return this.total
     }
   },
   methods: {
+    initDay(){
+      this.$store.dispatch('cleanTotalTimer')
+    },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;
       this.$emit("onChangeMode", this.isDarkMode);

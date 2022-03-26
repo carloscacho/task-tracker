@@ -4,7 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 import ITask from "./interfaces/ITask";
 
 export interface State {
-  data: ITask[];
+  data: [];
   totalTimer: number;
 }
 
@@ -18,29 +18,25 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 
 export const store = createStore<State>({
-  state() {
-    return {
-      data: [] as ITask[],
-      totalTimer: 0,
-    };
+  state:{
+    data: [],
+    totalTimer: 0,
   },
   plugins: [createPersistedState()],
   actions: {
     addItem: ({ commit }) =>  {commit('addItem')},
-    incrementTotal: ({ commit }, time) => {commit('incrementTotal', time)},
+    incrementTotal: ({ commit }, payload) => {commit('incrementTotal', payload)},
     cleanTotalTimer: ({ commit }) => {commit('cleanTotalTimer')},
   },
   getters: {
     getTotalTimer: state => state.totalTimer
   },
   mutations: {
-    addItem(state, item: ITask) {
-      state.data.push(item);
+    addItem(state) {
+      // state.data.push(item);
     },
     incrementTotal(state, payload) {
-      
-      state.totalTimer += payload.time;
-      console.log("new time", state.totalTimer)
+      state.totalTimer += payload.time;   
     },
     cleanTotalTimer(state) {
       state.totalTimer = 0;
