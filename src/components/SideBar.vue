@@ -5,11 +5,11 @@
     <div class="likeHeader"></div>
     <div class="timerView">
       <div :class="{ invisible: !visibilityTotal }">
-        <total-timer msg="Contador geral " :total="total" />
+        <total-timer msg="Contador geral " :total="getTotalTimer" />
       </div>
       <div :class="{ invisible: visibilityTotal }">
         <card-text> 
-          <span class="disableTimer">Contador desativado</span>  
+          <span class="textMode">Contador desativado</span>  
         </card-text>
       </div>
 
@@ -30,7 +30,7 @@
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
     </div>
     <div class="isNotSmart">
-      <total-timer :total="total" />
+      <total-timer :total="getTotalTimer" />
     </div>
   </header>
 </template>
@@ -40,6 +40,7 @@ import { defineComponent } from "vue";
 import TotalTimer from "./TotalTimer.vue";
 import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "./CardText.vue";
+import { useStore } from "../store";
 
 export default defineComponent({
   name: "SideBar",
@@ -58,6 +59,7 @@ export default defineComponent({
     return {
       isDarkMode: false,
       visibilityTotal: true,
+      store: useStore()
     };
   },
   computed: {
@@ -69,6 +71,10 @@ export default defineComponent({
     buttonIconEye() {
       return this.visibilityTotal ? "fa fa-eye" : "fa fa-eye-slash";
     },
+    getTotalTimer() {
+      // return this.$store.state.totalTimer
+      return this.total
+    }
   },
   methods: {
     changeModeHeader(darkMode: boolean) {
@@ -109,10 +115,6 @@ header {
 .likeHeader {
   padding: 0.5rem;
   background: #0d3b66;
-}
-.disableTimer {
-  font-weight: bold;
-  color: var(--text-primary);
 }
 .timerView {
   padding-left: 30px;

@@ -9,7 +9,7 @@
       <div class="taskList">
         <TaskItem v-for="(item, index) in listTask" :key="index" :item="item" />
         <card-text v-if="isEmptyList">
-          "Não há nenhuma tarefa finalizada"
+          <span class="textMode"> "Não há nenhuma tarefa finalizada" </span> 
         </card-text>
       </div>
     </div>
@@ -18,12 +18,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from './store'
 import SideBar from "./components/SideBar.vue";
 import FormTask from "./components/FormTask.vue";
 import TaskItem from "./components/Task.vue";
 
 import ITask from "./interfaces/ITask";
 import CardText from "./components/CardText.vue";
+
+
 
 export default defineComponent({
   name: "App",
@@ -35,6 +38,7 @@ export default defineComponent({
   },
   data() {
     return {
+      store: useStore(),
       listTask: [] as ITask[],
       isDarkMode: false,
       totalTimer: 0
@@ -49,6 +53,7 @@ export default defineComponent({
     saveTask(t: ITask) {
       this.listTask.push(t);
       this.totalTimer += t.timerInSeconds;
+      this.$store.dispatch({type:'incrementTotal', time: t.timerInSeconds})
       console.log("change value: ", this.totalTimer)
     },
     changeMode(isDarkMode: boolean) {
@@ -79,6 +84,10 @@ main.dark {
 }
 .content {
   background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+.textMode {
+  font-weight: bold;
   color: var(--text-primary);
 }
 </style>
