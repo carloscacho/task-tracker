@@ -19,12 +19,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from './store'
-import SideBar from "./components/SideBar.vue";
-import FormTask from "./components/FormTask.vue";
-import TaskItem from "./components/Task.vue";
+import SideBar from "./components/navigation/SideBar.vue";
+import FormTask from "./components/formView/FormTask.vue";
+import TaskItem from "./components/TaskList/Task.vue";
 
 import ITask from "./interfaces/ITask";
-import CardText from "./components/CardText.vue";
+import CardText from "./components/TaskList/CardText.vue";
 
 
 

@@ -39,10 +39,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TotalTimer from "./TotalTimer.vue";
-import HeaderPhone from "./HeaderPhone.vue";
-import CardText from "./CardText.vue";
-import { useStore } from "../store";
+import TotalTimer from "../TotalTimer.vue";
+import HeaderPhone from "../formView/HeaderPhone.vue";
+import CardText from "../TaskList/CardText.vue";
+import { useStore } from "../../store";
 
 export default defineComponent({
   name: "SideBar",

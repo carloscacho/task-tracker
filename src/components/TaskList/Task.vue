@@ -21,8 +21,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import StopwatchView from "./StopwatchView.vue";
-import ITask from "../interfaces/ITask";
+import StopwatchView from "../formView/StopwatchView.vue";
+import ITask from "../../interfaces/ITask";
 
 export default defineComponent({
   name: "TaskItem",
