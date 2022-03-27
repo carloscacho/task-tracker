@@ -24,7 +24,7 @@
         </card-text>
         <div v-if="!isEmptyOldList">
           <article class="panel mt-4">
-            <p class="panel-heading">Atividades antigamente finalizada</p>
+            <p class="panel-heading">Atividades finalizadas anteriormente</p>
             <div class="p-4">
               <TaskList
                 v-for="item in getOldItens"

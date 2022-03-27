@@ -13,7 +13,7 @@
       <button
         class="button is-danger is-fullwidth mr-4 mb-1"
         :class="{ today: !isToday }"
-        @click="finishDayWork"
+        @click="showModal"
       >
         finalizar o dia
       </button>
@@ -54,13 +54,22 @@
       <button
         class="button is-danger is-fullwidth mr-4 mb-2 mt-2"
         :class="{ today: !isToday }"
-        @click="finishDayWork"
+        @click="showModal"
       >
         finalizar o dia
       </button>
       <total-timer :total="getTotalTimer" />
     </div>
   </header>
+  <modal-msg 
+    title="Finalizar Tracker ?"
+    content="Você tem certeza que deseja finalizar o tracker por hoje? se finalizar não será possível deletar e editar tarefas de hoje"
+    btnText="Confirmar"
+    :show="showModalBool"
+    colorModal="is-success"
+    @okClick="okModalDel"
+    @cancelClick="cancelModalDel"
+  />
 </template>
 
 <script lang="ts">
@@ -69,6 +78,7 @@ import TotalTimer from "./TotalTimer.vue";
 import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
+import ModalMsg from "../Utils/ModalMsg.vue";
 
 export default defineComponent({
   name: "SideBar",
@@ -77,12 +87,14 @@ export default defineComponent({
     TotalTimer,
     HeaderPhone,
     CardText,
+    ModalMsg,
   },
   data() {
     return {
       isDarkMode: false,
       visibilityTotal: true,
       store: useStore(),
+      showModalBool: false
     };
   },
   computed: {
@@ -101,7 +113,7 @@ export default defineComponent({
     isToday() {
       let today = new Date().toLocaleDateString("en-GB");
       return today === this.$store.state.today;
-    },
+    }
   },
   methods: {
     initDayWork() {
@@ -129,6 +141,16 @@ export default defineComponent({
     changeVisibility() {
       this.visibilityTotal = !this.visibilityTotal;
     },
+    showModal() {
+      this.showModalBool = true
+    },
+    okModalDel() {
+      this.finishDayWork()
+      this.showModalBool = false
+    },
+    cancelModalDel() {
+      this.showModalBool = false
+    }
   },
 });
 </script>
