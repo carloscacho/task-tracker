@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar isSmart" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <a class="navbar-item" href="/">
         <img
-          src="../assets/icon-logo.png"
+          src="../../assets/icon-logo.png"
           width="32"
           height="40"
         />
-        <span class="text-brand">Task Tracker</span>
+        <span class="textMode">Task Tracker</span>
       </a>
       <div class="btns is-flex is-justify-content-end is-align-self-center ">
         <div>
@@ -60,9 +60,7 @@ export default defineComponent({
   background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
-.text-brand {
-  font-weight: bold;
-  color: var(--text-primary);
+.textMode {
   padding-left: 10px;
 }
 @media only screen and (max-width: 768px) {

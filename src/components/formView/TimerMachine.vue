@@ -30,7 +30,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import StopwatchView from "./StopwatchView.vue";
-import TimerButton from "./TimerButton.vue";
+import TimerButton from "../Utils/TimerButton.vue";
 
 export default defineComponent({
   name: "TimerMachine",
