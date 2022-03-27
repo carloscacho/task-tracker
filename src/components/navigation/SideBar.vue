@@ -167,7 +167,7 @@ i {
 .is-rounded {
   position: absolute;
   right: 10px;
-  top: 100px;
+  top: 170px;
 }
 .today {
   visibility: hidden;

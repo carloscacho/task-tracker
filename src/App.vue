@@ -33,7 +33,7 @@
                 :oldTotalTimer="item.totalTimer"
                 :expanded="false"
               >
-                <TaskItem v-for="it in item.data" :key="it.id" :item="it" />
+                <TaskItem v-for="it in item.data" :key="it.id" :item="it" :showBtns="false" />
               </TaskList>
             </div>
           </article>
