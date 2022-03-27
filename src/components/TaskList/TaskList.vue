@@ -1,8 +1,15 @@
 <template>
-  <vue-collapsible-panel-group base-color="#0d3b66">
-    <vue-collapsible-panel>
+  <vue-collapsible-panel-group base-color="#0d3b66" accordion>
+    <vue-collapsible-panel :expanded="expanded">
       <template #title>
-        <p class="card-header-title">Atividades do dia: {{ getDate }}</p>
+        <p class="mb-0">
+          <strong class="p-0">Atividades do dia:</strong> <small class="p-0">{{ getDate }}</small>
+        </p>
+        
+        <span class="ml-auto mr-4"> 
+          Total
+          <stopwatch-view :timerInSeconds="oldTotalTimer" />
+        </span> 
       </template>
       <template #content>
         <slot></slot>
@@ -18,6 +25,8 @@ import {
   VueCollapsiblePanel,
 } from "@dafcoe/vue-collapsible-panel";
 
+import StopwatchView from '../formView/StopwatchView.vue'
+
 export default defineComponent({
   name: "TaskList",
   props: {
@@ -25,10 +34,20 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    oldTotalTimer: {
+      type: Number,
+      default: 0
+    },
+    expanded:{
+      type: Boolean,
+      default: false
+    }
+    
   },
   components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
+    StopwatchView,
   },
   computed: {
     getDate() {

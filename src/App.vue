@@ -6,7 +6,11 @@
     <div class="column is-three-quarter content">
       <FormTask @onSalveTask="saveTask" />
       <div class="taskList">
-        <TaskList v-if="!isEmptyList">
+        <TaskList
+          v-if="!isEmptyList"
+          :oldTotalTimer="getTotalTimer"
+          :expanded="true"
+        >
           <TaskItem
             v-for="(item, index) in getItens"
             :key="index"
@@ -14,12 +18,25 @@
           />
         </TaskList>
         <card-text v-if="isEmptyList">
-          <span class="textMode"> "Não há nenhuma tarefa finalizada" </span>
+          <span class="textMode">
+            "Não há nenhuma tarefa finalizada hoje"
+          </span>
         </card-text>
         <div v-if="!isEmptyOldList">
-          <TaskList v-for="item in getOldItens" :key="item.id" :item="item">
-            <TaskItem v-for="it in item.data" :key="it.id" :item="it" />
-          </TaskList>
+          <article class="panel mt-4">
+            <p class="panel-heading">Atividades antigamente finalizada</p>
+            <div class="p-4">
+              <TaskList
+                v-for="item in getOldItens"
+                :key="item.id"
+                :oldDate="item.day"
+                :oldTotalTimer="item.totalTimer"
+                :expanded="false"
+              >
+                <TaskItem v-for="it in item.data" :key="it.id" :item="it" />
+              </TaskList>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -53,13 +70,17 @@ export default defineComponent({
     };
   },
   computed: {
+    getTotalTimer() {
+      return this.$store.state.totalTimer;
+    },
     getOldItens() {
-      return this.$store.state.OldTrackers
+      return this.$store.state.OldTrackers;
     },
     isEmptyList(): boolean {
       return this.$store.state.data.length === 0;
     },
     isEmptyOldList(): boolean {
+      console.log(this.$store.state.OldTrackers);
       return this.$store.state.OldTrackers.length === 0;
     },
     getItens(): ITask[] {

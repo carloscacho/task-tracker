@@ -60,11 +60,14 @@ export const store = createStore<State>({
       const tracker: Tracker = {
         id: new Date().toISOString() + Math.random().toString(),
         day: state.today,
-        data: state.data
+        data: state.data,
+        totalTimer: state.totalTimer
       }
       state.OldTrackers.push(tracker)
       state.today = ""
       state.data = []
+      state.totalTimer = 0;
+      console.log("salvando...", state.OldTrackers)
     },
     cleanTotalTimer(state) {
       state.data = []

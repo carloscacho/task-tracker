@@ -3,13 +3,27 @@
     <HeaderPhone @onChangeModeHeader="changeModeHeader" />
     <div class="likeHeader"></div>
     <div class="timerView">
+      <button
+        class="button is-success is-fullwidth mr-4 mb-1"
+        :class="{ today: isToday }"
+        @click="initDayWork"
+      >
+        Iniciar o dia
+      </button>
+      <button
+        class="button is-danger is-fullwidth mr-4 mb-1"
+        :class="{ today: !isToday }"
+        @click="finishDayWork"
+      >
+        finalizar o dia
+      </button>
       <div :class="{ invisible: !visibilityTotal }">
-        <button class="button is-success mb-2" @click="initDay">Iniciar o dia</button>
+        <!-- <button class="button is-success mb-2" @click="initDay">Iniciar o dia</button> -->
         <total-timer msg="Contador geral " :total="getTotalTimer" />
       </div>
       <div :class="{ invisible: visibilityTotal }">
-        <card-text> 
-          <span class="textMode">Contador desativado</span>  
+        <card-text>
+          <span class="textMode">Contador desativado</span>
         </card-text>
       </div>
 
@@ -30,8 +44,20 @@
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
     </div>
     <div class="isNotSmart">
-      <button class="button is-success is-fullwidth mr-4 mb-2 mt-2" :class="{'today':isToday}" @click="initDayWork">Iniciar o dia</button>
-      <button class="button is-danger is-fullwidth mr-4 mb-2 mt-2" :class="{'today':!isToday}" @click="finishDayWork">finalizar o dia</button>
+      <button
+        class="button is-success is-fullwidth mr-4 mb-2 mt-2"
+        :class="{ today: isToday }"
+        @click="initDayWork"
+      >
+        Iniciar o dia
+      </button>
+      <button
+        class="button is-danger is-fullwidth mr-4 mb-2 mt-2"
+        :class="{ today: !isToday }"
+        @click="finishDayWork"
+      >
+        finalizar o dia
+      </button>
       <total-timer :total="getTotalTimer" />
     </div>
   </header>
@@ -56,7 +82,7 @@ export default defineComponent({
     return {
       isDarkMode: false,
       visibilityTotal: true,
-      store: useStore()
+      store: useStore(),
     };
   },
   computed: {
@@ -69,20 +95,20 @@ export default defineComponent({
       return this.visibilityTotal ? "fa fa-eye" : "fa fa-eye-slash";
     },
     getTotalTimer() {
-      return this.$store.state.totalTimer
+      return this.$store.state.totalTimer;
       // return this.total
     },
-    isToday(){
-      let today = new Date().toLocaleDateString('en-GB')
-      return today === this.$store.state.today
-    }
+    isToday() {
+      let today = new Date().toLocaleDateString("en-GB");
+      return today === this.$store.state.today;
+    },
   },
   methods: {
-    initDayWork(){
-      this.$store.dispatch('initDayWork')
+    initDayWork() {
+      this.$store.dispatch("initDayWork");
     },
-    finishDayWork(){
-      this.$store.dispatch('cleanTotalTimer')
+    finishDayWork() {
+      this.$store.dispatch("finishDayWork");
     },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;
@@ -143,7 +169,7 @@ i {
   right: 10px;
   top: 100px;
 }
-.today{
+.today {
   visibility: hidden;
   height: 0;
 }
