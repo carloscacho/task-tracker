@@ -30,7 +30,8 @@
       <i @click="changeModeDark" class="fa-solid fa-moon"></i>
     </div>
     <div class="isNotSmart">
-      <button class="button is-success m-4" @click="initDay">Iniciar o dia</button>
+      <button class="button is-success is-fullwidth mr-4 mb-2 mt-2" :class="{'today':isToday}" @click="initDayWork">Iniciar o dia</button>
+      <button class="button is-danger is-fullwidth mr-4 mb-2 mt-2" :class="{'today':!isToday}" @click="finishDayWork">finalizar o dia</button>
       <total-timer :total="getTotalTimer" />
     </div>
   </header>
@@ -70,10 +71,17 @@ export default defineComponent({
     getTotalTimer() {
       return this.$store.state.totalTimer
       // return this.total
+    },
+    isToday(){
+      let today = new Date().toLocaleDateString('en-GB')
+      return today === this.$store.state.today
     }
   },
   methods: {
-    initDay(){
+    initDayWork(){
+      this.$store.dispatch('initDayWork')
+    },
+    finishDayWork(){
       this.$store.dispatch('cleanTotalTimer')
     },
     changeModeHeader(darkMode: boolean) {
@@ -134,6 +142,10 @@ i {
   position: absolute;
   right: 10px;
   top: 100px;
+}
+.today{
+  visibility: hidden;
+  height: 0;
 }
 @media only screen and (min-width: 768px) {
   .isSmart {

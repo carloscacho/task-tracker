@@ -1,12 +1,8 @@
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import ITask from "./interfaces/ITask";
-
-export interface State {
-  data: ITask[];
-  totalTimer: number;
-}
+import State from './interfaces/State'
+import Tracker from './interfaces/Tracker';
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -20,11 +16,19 @@ export const store = createStore<State>({
   state: {
     data: [],
     totalTimer: 0,
+    today: "",
+    OldTrackers: [],
   },
   plugins: [createPersistedState()],
   actions: {
     addItem: ({ commit }, payload) => {
       commit("addItem", payload);
+    },
+    initDayWork: ({ commit }) => {
+      commit("initDayWork");
+    },
+    finishDayWork: ({ commit }) => {
+      commit("finishDayWork");
     },
     deleteItem: ({ commit }, payload) => {
       commit("deleteItem", payload);
@@ -49,9 +53,23 @@ export const store = createStore<State>({
     incrementTotal(state, payload) {
       state.totalTimer += payload.time;
     },
+    initDayWork(state){
+      state.today = new Date().toLocaleDateString('en-GB')
+    },
+    finishDayWork(state){
+      const tracker: Tracker = {
+        id: new Date().toISOString() + Math.random().toString(),
+        day: state.today,
+        data: state.data
+      }
+      state.OldTrackers.push(tracker)
+      state.today = ""
+      state.data = []
+    },
     cleanTotalTimer(state) {
-      // state.data = []
+      state.data = []
       state.totalTimer = 0;
+      state.today = ""
     },
   },
 });
