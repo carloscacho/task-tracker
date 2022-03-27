@@ -13,7 +13,7 @@
       <button
         class="button is-danger is-fullwidth mr-4 mb-1"
         :class="{ today: !isToday }"
-        @click="showModal"
+        @click="showModalEndDay"
       >
         finalizar o dia
       </button>
@@ -54,21 +54,30 @@
       <button
         class="button is-danger is-fullwidth mr-4 mb-2 mt-2"
         :class="{ today: !isToday }"
-        @click="showModal"
+        @click="showModalEndDay"
       >
         finalizar o dia
       </button>
       <total-timer :total="getTotalTimer" />
     </div>
   </header>
-  <modal-msg 
+  <modal-msg
     title="Finalizar Tracker ?"
     content="Você tem certeza que deseja finalizar o tracker por hoje? se finalizar não será possível deletar e editar tarefas de hoje"
     btnText="Confirmar"
-    :show="showModalBool"
+    :show="showModalFinish"
     colorModal="is-success"
-    @okClick="okModalDel"
-    @cancelClick="cancelModalDel"
+    @okClick="okModalEndDay"
+    @cancelClick="cancelModalEndDay"
+  />
+  <modal-msg
+    title="Aviso!!!"
+    content="Você iniciou o dia, mas não fez nenhuma atividade, não há como salvar nada, deseja fechar o tracker"
+    btnText="Fechar"
+    :show="showModalAlert"
+    colorModal="is-danger"
+    @okClick="okModalAlert"
+    @cancelClick="cancelModalAlert"
   />
 </template>
 
@@ -94,7 +103,8 @@ export default defineComponent({
       isDarkMode: false,
       visibilityTotal: true,
       store: useStore(),
-      showModalBool: false
+      showModalFinish: false,
+      showModalAlert: false
     };
   },
   computed: {
@@ -113,7 +123,7 @@ export default defineComponent({
     isToday() {
       let today = new Date().toLocaleDateString("en-GB");
       return today === this.$store.state.today;
-    }
+    },
   },
   methods: {
     initDayWork() {
@@ -141,16 +151,32 @@ export default defineComponent({
     changeVisibility() {
       this.visibilityTotal = !this.visibilityTotal;
     },
-    showModal() {
-      this.showModalBool = true
+    showModalEndDay() {
+      if (this.$store.state.data.length === 0) {
+        this.showModalAlert = true;
+      }
+      else {
+        this.showModalFinish = true;
+      }
     },
-    okModalDel() {
-      this.finishDayWork()
-      this.showModalBool = false
+    okModalEndDay() {
+      this.finishDayWork();
+      this.showModalFinish = false;
+      this.showModalAlert = false;
     },
-    cancelModalDel() {
-      this.showModalBool = false
-    }
+    cancelModalEndDay() {
+      this.showModalFinish = false;
+      this.showModalAlert = false;
+    },
+    okModalAlert() {
+      this.$store.dispatch('cleanTotalTimer')
+      this.showModalAlert = false;
+      this.showModalFinish = false;
+    },
+    cancelModalAlert() {
+      this.showModalAlert = false;
+      this.showModalFinish = false;
+    },
   },
 });
 </script>

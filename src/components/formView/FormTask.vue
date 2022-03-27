@@ -1,6 +1,7 @@
 <template>
   <div class="box formTime">
-    <div class="columns">
+    <p v-if="!newDay">Click em iniciar o dia para ativar o tracker</p>
+    <div v-if="newDay" class="columns">
       <div
         class="column is-8"
         role="form"
@@ -34,6 +35,11 @@ export default defineComponent({
     return {
       description: "",
     };
+  },
+  computed: {
+    newDay() {
+      return this.$store.state.today !== ""
+    }
   },
   methods: {
     finishTask(timeStop: number): void {
