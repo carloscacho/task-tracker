@@ -4,11 +4,11 @@
       <vue-collapsible-panel :expanded="expanded">
         <template #title>
           <p class="mb-0">
-            <strong class="p-0">Atividades do dia: </strong>
+            <strong class="p-0 txt-color">Atividades do dia: </strong>
             <small class="p-0">{{ getDate }}</small>
           </p>
 
-          <span class="ml-auto mr-4">
+          <span class="ml-auto mr-4 txt-color">
             Total
             <stopwatch-view :timerInSeconds="oldTotalTimer" />
           </span>
@@ -60,3 +60,13 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+header.vcp__body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+.txt-color {
+  color: var(--text-primary);
+}
+</style>

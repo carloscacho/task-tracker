@@ -103,6 +103,14 @@ export default defineComponent({
 .taskList {
   padding: 2.5rem;
 }
+.panel-heading {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+.panel {
+  border:2px solid var(--bg-secondary);
+}
+
 @media only screen and (max-width: 768px) {
   .taskList {
     height: calc(100vh - 52px - 32px - 96px - 144px - 1.5rem);
@@ -112,7 +120,6 @@ main {
   --bg-primary: rgb(255, 255, 255);
   --bg-secondary: rgb(197, 213, 248);
   --text-primary: rgb(15, 15, 15);
-  --bg-color-header: #0d3b66;
 }
 main.dark {
   --bg-primary: #2d2d42;
@@ -126,5 +133,13 @@ main.dark {
 .textMode {
   font-weight: bold;
   color: var(--text-primary);
+}
+div.vcpg {
+  --base-color: rgb(98, 147, 253) !important;
+  --border-color: rgb(98, 147, 253) !important;
+  --bg-color-header: rgb(98, 147, 253) !important;
+  --bg-color-header-hover: rgb(98, 147, 253) !important;
+  --bg-color-header-active: rgb(98, 147, 253) !important;
+  --bg-color-body: var(--bg-primary) !important;
 }
 </style>
