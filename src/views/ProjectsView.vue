@@ -15,7 +15,7 @@
         <button class="button" type="submit">Salvar</button>
       </div>
     </form>
-    <table class="table is-fullwidth">
+    <table class="table mt-3 is-fullwidth is-striped is-narrow is-hoverable">
       <thead>
         <tr>
           <th>ID</th>
@@ -61,5 +61,17 @@ export default defineComponent({
 <style scoped>
 .projects {
   padding: 1.5rem;
+  height: calc(100vh - 52px - 32px - 96px - 144px);
+}
+
+.title,
+.label {
+  color: var(--text-primary);
+}
+
+th,
+td {
+  background-color: var(--bg-primary);
+  color: var(--text-primary) !important;
 }
 </style>
