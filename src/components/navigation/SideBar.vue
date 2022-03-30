@@ -74,6 +74,12 @@
             Projetos
           </router-link>
         </li>
+        <li>
+          <router-link class="link" to="/salved">
+            <i class="fa-solid fa-box-archive"></i>
+            Trackers
+          </router-link>
+        </li>
       </ul>
     </nav>
   </header>
@@ -261,6 +267,12 @@ i {
   .isNotSmart {
     visibility: visible;
   }
+
+  .panel-smart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -270,8 +282,8 @@ i {
   }
   .panel-smart > li {
     display: inline-flex;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 5px;
+    padding-right: 5px;
     flex-direction: column;
     align-items: center;
   }
