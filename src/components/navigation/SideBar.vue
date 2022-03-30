@@ -60,6 +60,22 @@
       </button>
       <total-timer :total="getTotalTimer" />
     </div>
+    <nav class="panel mt-4">
+      <ul class="panel-smart">
+        <li>
+          <router-link class="link" to="/">
+            <i class="fas fa-tasks"></i>
+            Tarefas
+          </router-link>
+        </li>
+        <li>
+          <router-link class="link" to="/projects">
+            <i class="fas fa-project-diagram"></i>
+            Projetos
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
   <modal-msg
     title="Finalizar Tracker ?"
@@ -104,7 +120,7 @@ export default defineComponent({
       visibilityTotal: true,
       store: useStore(),
       showModalFinish: false,
-      showModalAlert: false
+      showModalAlert: false,
     };
   },
   computed: {
@@ -154,8 +170,7 @@ export default defineComponent({
     showModalEndDay() {
       if (this.$store.state.data.length === 0) {
         this.showModalAlert = true;
-      }
-      else {
+      } else {
         this.showModalFinish = true;
       }
     },
@@ -169,7 +184,7 @@ export default defineComponent({
       this.showModalAlert = false;
     },
     okModalAlert() {
-      this.$store.dispatch('cleanTotalTimer')
+      this.$store.dispatch("cleanTotalTimer");
       this.showModalAlert = false;
       this.showModalFinish = false;
     },
@@ -221,6 +236,22 @@ i {
   visibility: hidden;
   height: 0;
 }
+.panel li {
+  margin: 8px 0;
+}
+.link {
+  color: #fff;
+}
+.link:hover {
+  color: #faf0ca;
+}
+.link.router-link-active {
+  color: #faf0ca;
+}
+.link > i {
+  font-size: 1rem;
+  margin: 1rem;
+}
 @media only screen and (min-width: 768px) {
   .isSmart {
     visibility: hidden;
@@ -236,6 +267,13 @@ i {
   header {
     padding: 0.5rem;
     height: auto;
+  }
+  .panel-smart > li {
+    display: inline-flex;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    flex-direction: column;
+    align-items: center;
   }
 
   .isSmart {
