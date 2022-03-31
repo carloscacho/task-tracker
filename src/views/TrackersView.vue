@@ -30,7 +30,7 @@ import TaskItem from "../components/TaskList/Task.vue";
 import TaskList from "../components/TaskList/TaskList.vue";
 
 export default defineComponent({
-  name: "OldTaskView",
+  name: "TrackersView",
   components: {
     TaskItem,
     TaskList,

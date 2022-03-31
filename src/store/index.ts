@@ -1,8 +1,9 @@
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import State from './interfaces/State'
-import Tracker from './interfaces/Tracker';
+import State from '@/interfaces/State'
+import Tracker from '@/interfaces/Tracker';
+import IProject from './../interfaces/IProjects';
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -18,11 +19,15 @@ export const store = createStore<State>({
     totalTimer: 0,
     today: "",
     OldTrackers: [],
+    projects: [],
   },
   plugins: [createPersistedState()],
   actions: {
     addItem: ({ commit }, payload) => {
       commit("addItem", payload);
+    },
+    addProject: ({ commit }, payload) => {
+      commit("addProject", payload);
     },
     initDayWork: ({ commit }) => {
       commit("initDayWork");
@@ -46,6 +51,13 @@ export const store = createStore<State>({
   mutations: {
     addItem(state, payload) {
       state.data.push(payload.item);
+    },
+    addProject(state, payload){
+      const project = {
+        id: new Date().toDateString(),
+        name: payload.name
+      }as IProject
+      state.projects.push(project)
     },
     deleteItem(state, payload) {
       state.data = state.data.filter((value) => value.id !== payload.id);

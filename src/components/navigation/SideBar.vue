@@ -70,12 +70,12 @@
         </li>
         <li>
           <router-link class="link" to="/projects">
-            <i class="fas fa-project-diagram"></i>
+            <i class="fa-solid fa-folder-tree"></i>
             Projetos
           </router-link>
         </li>
         <li>
-          <router-link class="link" to="/salved">
+          <router-link class="link" to="/trackers">
             <i class="fa-solid fa-box-archive"></i>
             Trackers
           </router-link>
@@ -105,7 +105,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TotalTimer from "./TotalTimer.vue";
+import TotalTimer from "../formView/TotalTimer.vue";
 import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
@@ -248,11 +248,11 @@ i {
 .link {
   color: #fff;
 }
-.link:hover {
-  color: #faf0ca;
+.link:hover, i:hover {
+  color: rgb(98, 147, 253);
 }
 .link.router-link-active {
-  color: #faf0ca;
+  color: rgb(98, 147, 253);
 }
 .link > i {
   font-size: 1rem;

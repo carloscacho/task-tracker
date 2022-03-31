@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 //views
 import TaskView from "../views/TaskView.vue";
 import ProjectsView from "../views/ProjectsView.vue"
-import OldTaskView from '../views/OldTaskView.vue'
+import TrackersView from '../views/TrackersView.vue'
 // rotas
 const routes: RouteRecordRaw[] = [
   {
@@ -16,9 +16,9 @@ const routes: RouteRecordRaw[] = [
     component: ProjectsView,
   },
   {
-    path: "/salved",
-    name: "OldTaskView",
-    component: OldTaskView,
+    path: "/trackers",
+    name: "TrackersView",
+    component: TrackersView,
   },
 ];
 // roteador

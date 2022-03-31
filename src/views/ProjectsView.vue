@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="proj in projects" :key="proj.id">
+        <tr v-for="proj in getProjects" :key="proj.id">
           <th>{{ proj.id }}</th>
           <th>{{ proj.name }}</th>
         </tr>
@@ -35,23 +35,22 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import IProject from "../interfaces/IProjects";
 
 export default defineComponent({
   name: "ProjectsView",
   data() {
     return {
       projectName: "",
-      projects: [] as IProject[],
     };
+  },
+  computed: {
+    getProjects(){
+      return this.$store.state.projects
+    }
   },
   methods: {
     salvar() {
-      const project: IProject = {
-        id: new Date().toISOString(),
-        name: this.projectName,
-      };
-      this.projects.push(project);
+      this.$store.dispatch("addProject", { name: this.projectName });
       this.projectName = "";
     },
   },

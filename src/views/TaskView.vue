@@ -11,27 +11,6 @@
     <card-text v-if="isEmptyList">
       <span class="textMode"> "Não há nenhuma tarefa finalizada hoje" </span>
     </card-text>
-    <div v-if="!isEmptyOldList">
-      <article class="panel mt-4">
-        <p class="panel-heading">Atividades finalizadas anteriormente</p>
-        <div class="p-4">
-          <TaskList
-            v-for="item in getOldItens"
-            :key="item.id"
-            :oldDate="item.day"
-            :oldTotalTimer="item.totalTimer"
-            :expanded="false"
-          >
-            <TaskItem
-              v-for="it in item.data"
-              :key="it.id"
-              :item="it"
-              :showBtns="false"
-            />
-          </TaskList>
-        </div>
-      </article>
-    </div>
   </div>
 </template>
 
