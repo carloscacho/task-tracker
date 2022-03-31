@@ -3,12 +3,23 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import TaskView from "../views/TaskView.vue";
 import ProjectsView from "../views/ProjectsView.vue"
 import TrackersView from '../views/TrackersView.vue'
+import FormProjects from '../views/Projects/FormProjects.vue'
 // rotas
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "TaskView",
     component: TaskView,
+  },
+  {
+    path: "/projects/new",
+    name: "NewProject",
+    component: FormProjects,
+  },
+  {
+    path: "/projects/:id/edit",
+    name: "EditProject",
+    component: ProjectsView,
   },
   {
     path: "/projects",

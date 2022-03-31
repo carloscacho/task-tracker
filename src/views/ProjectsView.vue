@@ -1,31 +1,32 @@
 <template>
   <section class="projects">
     <h1 class="title">Projetos</h1>
-    <form @submit.prevent="salvar">
-      <div class="field">
-        <label for="nomeDoProjeto" class="label">Nome do Projeto</label>
-        <input
-          type="text"
-          class="input"
-          v-model="projectName"
-          id="projectName"
-        />
-      </div>
-      <div class="field">
-        <button class="button" type="submit">Salvar</button>
-      </div>
-    </form>
+    <router-link to="/projects/new" class="button is-success">
+      <span class="icon is-small">
+        <i class="fas fa-plus"></i>
+      </span>
+      <span>Novo Projeto</span>
+    </router-link>
     <table class="table mt-3 is-fullwidth is-striped is-narrow is-hoverable">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nome</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="proj in getProjects" :key="proj.id">
-          <th>{{ proj.id }}</th>
-          <th>{{ proj.name }}</th>
+          <td>{{ proj.id }}</td>
+          <td>{{ proj.name }}</td>
+          <td>
+            <router-link :to="`/projetos/${proj.id}/edit`" class="button is-warning">
+              <span class="icon is-small">
+                <i class="fa-solid fa-pencil-alt"></i>
+              </span>
+              <span class="isNotSmart">Editar</span>
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -37,21 +38,10 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "ProjectsView",
-  data() {
-    return {
-      projectName: "",
-    };
-  },
+  name: "FormView",
   computed: {
-    getProjects(){
-      return this.$store.state.projects
-    }
-  },
-  methods: {
-    salvar() {
-      this.$store.dispatch("addProject", { name: this.projectName });
-      this.projectName = "";
+    getProjects() {
+      return this.$store.state.projects;
     },
   },
 });
@@ -72,5 +62,11 @@ th,
 td {
   background-color: var(--bg-primary);
   color: var(--text-primary) !important;
+}
+@media only screen and (max-width: 768px) {
+  .isNotSmart {
+    visibility: hidden;
+    width: 0;
+  }
 }
 </style>
