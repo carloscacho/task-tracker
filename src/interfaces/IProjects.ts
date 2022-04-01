@@ -1,4 +1,4 @@
 export default interface IProject {
-  id: String,
-  name: String
+  id: string,
+  name: string
 }

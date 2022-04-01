@@ -1,9 +1,9 @@
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import State from '@/interfaces/State'
-import Tracker from '@/interfaces/Tracker';
-import IProject from './../interfaces/IProjects';
+import State from "@/interfaces/State";
+import Tracker from "@/interfaces/Tracker";
+import IProject from "./../interfaces/IProjects";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -29,6 +29,12 @@ export const store = createStore<State>({
     addProject: ({ commit }, payload) => {
       commit("addProject", payload);
     },
+    editProject: ({ commit }, payload) => {
+      commit("editProject", payload);
+    },
+    deleteProject: ({ commit }, payload) => {
+      commit("deleteProject", payload);
+    },
     initDayWork: ({ commit }) => {
       commit("initDayWork");
     },
@@ -52,12 +58,19 @@ export const store = createStore<State>({
     addItem(state, payload) {
       state.data.push(payload.item);
     },
-    addProject(state, payload){
+    addProject(state, payload) {
       const project = {
-        id: new Date().toDateString(),
-        name: payload.name
-      }as IProject
-      state.projects.push(project)
+        id: new Date().toISOString(),
+        name: payload.name,
+      } as IProject;
+      state.projects.push(project);
+    },
+    editProject(state, payload) {
+      const index = state.projects.findIndex((proj) => proj.id == payload.id);
+      state.projects[index] = payload.project;
+    },
+    deleteProject(state, payload) {
+      state.projects = state.projects.filter((value) => value.id !== payload.id);
     },
     deleteItem(state, payload) {
       state.data = state.data.filter((value) => value.id !== payload.id);
@@ -65,26 +78,26 @@ export const store = createStore<State>({
     incrementTotal(state, payload) {
       state.totalTimer += payload.time;
     },
-    initDayWork(state){
-      state.today = new Date().toLocaleDateString('en-GB')
+    initDayWork(state) {
+      state.today = new Date().toLocaleDateString("en-GB");
     },
-    finishDayWork(state){
+    finishDayWork(state) {
       const tracker: Tracker = {
         id: new Date().toISOString() + Math.random().toString(),
         day: state.today,
         data: state.data,
-        totalTimer: state.totalTimer
-      }
-      state.OldTrackers.push(tracker)
-      state.today = ""
-      state.data = []
+        totalTimer: state.totalTimer,
+      };
+      state.OldTrackers.push(tracker);
+      state.today = "";
+      state.data = [];
       state.totalTimer = 0;
-      console.log("salvando...", state.OldTrackers)
+      console.log("salvando...", state.OldTrackers);
     },
     cleanTotalTimer(state) {
-      state.data = []
+      state.data = [];
       state.totalTimer = 0;
-      state.today = ""
+      state.today = "";
     },
   },
 });

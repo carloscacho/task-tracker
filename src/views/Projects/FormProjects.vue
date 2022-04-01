@@ -1,6 +1,5 @@
 <template>
   <section class="projects">
-    <h1 class="title">Projetos</h1>
     <form @submit.prevent="salvar">
       <div class="field">
         <label for="nomeDoProjeto" class="label">Nome do Projeto</label>
@@ -29,11 +28,32 @@ export default defineComponent({
       projectName: "",
     };
   },
+  props: {
+    id: {
+      type: String,
+    },
+  },
+  mounted() {
+    if (this.id) {
+      const project = this.$store.state.projects.find(
+        (proj) => proj.id == this.id
+      );
+      this.projectName = project?.name || "";
+    }
+  },
   methods: {
     salvar() {
-      this.$store.dispatch("addProject", { name: this.projectName });
+      if (this.id) {
+        let project = {
+          id: this.id,
+          name: this.projectName,
+        };
+        this.$store.dispatch("editProject", { id: this.id, project });
+      } else {
+        this.$store.dispatch("addProject", { name: this.projectName });
+      }
       this.projectName = "";
-      this.$router.push("/projects")
+      this.$router.push("/projects");
     },
   },
 });
@@ -49,5 +69,4 @@ export default defineComponent({
 .label {
   color: var(--text-primary);
 }
-
 </style>

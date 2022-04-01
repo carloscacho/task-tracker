@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 //views
 import TaskView from "../views/TaskView.vue";
-import ProjectsView from "../views/ProjectsView.vue"
 import TrackersView from '../views/TrackersView.vue'
+import ProjectsView from "../views/ProjectsView.vue"
+import ListProjects from "../views/Projects/ListProjects.vue"
 import FormProjects from '../views/Projects/FormProjects.vue'
 // rotas
 const routes: RouteRecordRaw[] = [
@@ -12,25 +13,32 @@ const routes: RouteRecordRaw[] = [
     component: TaskView,
   },
   {
-    path: "/projects/new",
-    name: "NewProject",
-    component: FormProjects,
-  },
-  {
-    path: "/projects/:id/edit",
-    name: "EditProject",
-    component: ProjectsView,
-  },
-  {
-    path: "/projects",
-    name: "ProjectsView",
-    component: ProjectsView,
-  },
-  {
     path: "/trackers",
     name: "TrackersView",
     component: TrackersView,
   },
+  {
+    path: '/projects',
+    component: ProjectsView,
+    children: [
+      {
+        path: "",
+        name: "ProjectsView",
+        component: ListProjects,
+      },
+      {
+        path: "new",
+        name: "NewProject",
+        component: FormProjects,
+      },
+      {
+        path: "edit/:id",
+        name: "EditProject",
+        component: FormProjects,
+        props: true
+      },
+    ]
+  }
 ];
 // roteador
 const routerPaths = createRouter({
