@@ -19,6 +19,7 @@
 
 
 <script lang="ts">
+import IAlert, { AlertTypes } from "@/interfaces/IAlert";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -48,11 +49,17 @@ export default defineComponent({
           id: this.id,
           name: this.projectName,
         };
-        this.$store.dispatch("editProject", { id: this.id, project });
+        this.$store.commit("editProject", { id: this.id, project });
       } else {
-        this.$store.dispatch("addProject", { name: this.projectName });
+        this.$store.commit("addProject", { name: this.projectName });
       }
       this.projectName = "";
+      this.$store.commit("alertShow", {alert:{
+        id:0,
+        title: "Novo Projeto salvo",
+        text: "Pronto o seu novo projeto está salvo ✌️",
+        alertType: AlertTypes.SUCCESS
+      }})
       this.$router.push("/projects");
     },
   },

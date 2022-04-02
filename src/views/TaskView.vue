@@ -49,8 +49,8 @@ export default defineComponent({
   },
   methods: {
     saveTask(t: ITask) {
-      this.$store.dispatch("addItem", { item: t });
-      this.$store.dispatch("incrementTotal", { time: t.timerInSeconds });
+      this.$store.commit("addItem", { item: t });
+      this.$store.commit("incrementTotal", { time: t.timerInSeconds });
     },
   },
 });

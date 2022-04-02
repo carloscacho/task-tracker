@@ -56,7 +56,7 @@ export default defineComponent({
   },
   methods: {
     delete() {
-      this.$store.dispatch("deleteItem", this.item);
+      this.$store.commit("deleteItem", this.item);
     },
     showModal() {
       this.showModalBool = true

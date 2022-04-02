@@ -21,57 +21,9 @@ export const store = createStore<State>({
     today: "",
     OldTrackers: [],
     projects: [],
-    alerts: [
-      {
-        id: 1,
-        title: "teste sucesso",
-        text: "que top deu sucesso",
-        alertType: AlertTypes.SUCCESS,
-      },
-      {
-        id: 2,
-        title: "teste erro",
-        text: "que ruim deu erro",
-        alertType: AlertTypes.DANGER,
-      },
-      {
-        id: 3,
-        title: "teste aviso",
-        text: "Somente um aviso",
-        alertType: AlertTypes.WARNING,
-      },
-    ],
+    alerts: [],
   },
   plugins: [createPersistedState()],
-  actions: {
-    addItem: ({ commit }, payload) => {
-      commit("addItem", payload);
-    },
-    addProject: ({ commit }, payload) => {
-      commit("addProject", payload);
-    },
-    editProject: ({ commit }, payload) => {
-      commit("editProject", payload);
-    },
-    deleteProject: ({ commit }, payload) => {
-      commit("deleteProject", payload);
-    },
-    initDayWork: ({ commit }) => {
-      commit("initDayWork");
-    },
-    finishDayWork: ({ commit }) => {
-      commit("finishDayWork");
-    },
-    deleteItem: ({ commit }, payload) => {
-      commit("deleteItem", payload);
-    },
-    incrementTotal: ({ commit }, payload) => {
-      commit("incrementTotal", payload);
-    },
-    cleanTotalTimer: ({ commit }) => {
-      commit("cleanTotalTimer");
-    },
-  },
   getters: {
     getTotalTimer: (state) => state.totalTimer,
   },
@@ -121,6 +73,17 @@ export const store = createStore<State>({
       state.data = [];
       state.totalTimer = 0;
       state.today = "";
+      state.alerts = []
+      // state.OldTrackers = []
+    },
+    alertShow(state, payload) {
+      payload.alert.id = new Date().getTime();
+      state.alerts.push(payload.alert);
+      setTimeout(() => {
+        state.alerts = state.alerts.filter(
+          (alert) => alert.id != payload.alert.id
+        );
+      }, 3000);
     },
   },
 });

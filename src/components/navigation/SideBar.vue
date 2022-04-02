@@ -149,10 +149,10 @@ export default defineComponent({
   },
   methods: {
     initDayWork() {
-      this.$store.dispatch("initDayWork");
+      this.$store.commit("initDayWork");
     },
     finishDayWork() {
-      this.$store.dispatch("finishDayWork");
+      this.$store.commit("finishDayWork");
     },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;
@@ -190,7 +190,7 @@ export default defineComponent({
       this.showModalAlert = false;
     },
     okModalAlert() {
-      this.$store.dispatch("cleanTotalTimer");
+      this.$store.commit("cleanTotalTimer");
       this.showModalAlert = false;
       this.showModalFinish = false;
     },
