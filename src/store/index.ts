@@ -4,6 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 import State from "@/interfaces/State";
 import Tracker from "@/interfaces/Tracker";
 import IProject from "./../interfaces/IProjects";
+import { AlertTypes } from "@/interfaces/IAlert";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -20,6 +21,26 @@ export const store = createStore<State>({
     today: "",
     OldTrackers: [],
     projects: [],
+    alerts: [
+      {
+        id: 1,
+        title: "teste sucesso",
+        text: "que top deu sucesso",
+        alertType: AlertTypes.SUCCESS,
+      },
+      {
+        id: 2,
+        title: "teste erro",
+        text: "que ruim deu erro",
+        alertType: AlertTypes.DANGER,
+      },
+      {
+        id: 3,
+        title: "teste aviso",
+        text: "Somente um aviso",
+        alertType: AlertTypes.WARNING,
+      },
+    ],
   },
   plugins: [createPersistedState()],
   actions: {
@@ -70,7 +91,9 @@ export const store = createStore<State>({
       state.projects[index] = payload.project;
     },
     deleteProject(state, payload) {
-      state.projects = state.projects.filter((value) => value.id !== payload.id);
+      state.projects = state.projects.filter(
+        (value) => value.id !== payload.id
+      );
     },
     deleteItem(state, payload) {
       state.data = state.data.filter((value) => value.id !== payload.id);

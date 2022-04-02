@@ -4,6 +4,7 @@
       <SideBar @onChangeMode="changeMode" />
     </div>
     <div class="column is-three-quarter content">
+      <alert-msg />
       <!-- Aqui será renderizado a view correspondente -->
       <router-view></router-view>
     </div>
@@ -13,11 +14,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import SideBar from "./components/navigation/SideBar.vue";
+import AlertMsg from './components/Utils/AlertMsg.vue'
 
 export default defineComponent({
   name: "App",
   components: {
     SideBar,
+    AlertMsg
   },
   data() {
     return {

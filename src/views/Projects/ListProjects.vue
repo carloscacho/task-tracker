@@ -49,7 +49,7 @@ export default defineComponent({
   name: "ListProjects",
   methods: {
     deleteProject(id: string) {
-      this.$store.dispatch("deleteProject", {id:id})
+      this.$store.dispatch("deleteProject", {id})
     }
   },
   computed: {
