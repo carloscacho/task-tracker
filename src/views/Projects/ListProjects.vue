@@ -61,11 +61,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.title,
-.label {
-  color: var(--text-primary);
-}
-
 th,
 td {
   background-color: var(--bg-primary);

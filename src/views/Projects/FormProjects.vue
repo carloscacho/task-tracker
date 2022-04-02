@@ -21,6 +21,7 @@
 <script lang="ts">
 import IAlert, { AlertTypes } from "@/interfaces/IAlert";
 import { defineComponent } from "vue";
+import {notifyMixin} from "@/mixins/notify"
 
 export default defineComponent({
   name: "FormProjects",
@@ -42,8 +43,20 @@ export default defineComponent({
       this.projectName = project?.name || "";
     }
   },
+  mixins:[notifyMixin],
   methods: {
     salvar() {
+      if (this.projectName == "") {
+        this.$store.commit("alertShow", {
+          alert: {
+            id: 0,
+            title: "Ops!",
+            text: "Digite um nome valido para o projeto antes de tentar Salvar!",
+            alertType: AlertTypes.DANGER,
+          },
+        });
+        return;
+      }
       if (this.id) {
         let project = {
           id: this.id,
@@ -54,12 +67,11 @@ export default defineComponent({
         this.$store.commit("addProject", { name: this.projectName });
       }
       this.projectName = "";
-      this.$store.commit("alertShow", {alert:{
-        id:0,
-        title: "Novo Projeto salvo",
-        text: "Pronto o seu novo projeto está salvo ✌️",
-        alertType: AlertTypes.SUCCESS
-      }})
+      this.notify(
+        AlertTypes.SUCCESS,
+        "Projeto salvo",
+        "Pronto o seu novo projeto está salvo ✌️"
+      );
       this.$router.push("/projects");
     },
   },

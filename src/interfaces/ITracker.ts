@@ -1,6 +1,6 @@
 import ITask from "./ITask";
 
-export default interface Tracker {
+export default interface ITracker {
   id: string,
   day: string,
   data: ITask[];

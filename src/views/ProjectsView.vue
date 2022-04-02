@@ -15,6 +15,10 @@ export default defineComponent({
 
 
 <style scoped>
+.title,
+.label {
+  color: var(--text-primary);
+}
 .projects {
   padding: 1.5rem;
   height: calc(100vh - 52px - 32px - 96px - 144px);

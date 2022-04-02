@@ -2,7 +2,7 @@ import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import State from "@/interfaces/State";
-import Tracker from "@/interfaces/Tracker";
+import ITracker from "@/interfaces/ITracker";
 import IProject from "./../interfaces/IProjects";
 import { AlertTypes } from "@/interfaces/IAlert";
 
@@ -57,7 +57,7 @@ export const store = createStore<State>({
       state.today = new Date().toLocaleDateString("en-GB");
     },
     finishDayWork(state) {
-      const tracker: Tracker = {
+      const tracker: ITracker = {
         id: new Date().toISOString() + Math.random().toString(),
         day: state.today,
         data: state.data,
