@@ -70,11 +70,11 @@ export const store = createStore<State>({
       console.log("salvando...", state.OldTrackers);
     },
     cleanTotalTimer(state) {
-      state.data = [];
+      //state.data = [];
       state.totalTimer = 0;
       state.today = "";
       state.alerts = []
-      // state.OldTrackers = []
+      //state.OldTrackers = []
     },
     alertShow(state, payload) {
       payload.alert.id = new Date().getTime();

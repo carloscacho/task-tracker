@@ -51,18 +51,20 @@ export default defineComponent({
   bottom: 0;
   right: 0;
   margin-bottom: 10px;
+  margin-right: 10px;
   width: 300px;
   z-index: 100;
 }
 
 .slide-in-and-out-right {
   -webkit-animation-delay: 0s, 3s ;
-  -webkit-animation-duration: 0.5s, 0.5s;
+  -webkit-animation-duration: 0.5s, 0.8s;
   -webkit-animation-name: slide-in-right, slide-out-right;
+  
   /* -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both, slide-in-right 0.9s cubic-bezier(0.550, 0.085, 0.680, 0.530) 3s both reverse; */
   animation-delay: 0s, 3s;
-  animation-duration: 0.5s, 0.5s;
-  animation-name: slide-in-right, slide-out-right;;
+  animation-duration: 0.5s, 0.8s;
+  animation-name: slide-in-right, slide-out-right;
   /* animation: slide-in-right 0.5s, slide-in-right 0.9s cubic-bezier(0.550, 0.085, 0.680, 0.530) 3s both reverse; */
 }
 

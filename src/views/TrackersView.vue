@@ -12,7 +12,7 @@
             :expanded="false"
           >
             <TaskItem
-              v-for="it in item.data"
+              v-for="it in item.data.slice(0).reverse()"
               :key="it.id"
               :item="it"
               :showBtns="false"
@@ -37,12 +37,12 @@ export default defineComponent({
   },
   computed: {
     getOldItens() {
-      return this.$store.state.OldTrackers;
+      return this.$store.state.OldTrackers.slice(0).reverse();
     },
     isEmptyOldList(): boolean {
       console.log(this.$store.state.OldTrackers);
       return this.$store.state.OldTrackers.length === 0;
-    },
+    }
   },
 });
 </script>

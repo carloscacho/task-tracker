@@ -44,7 +44,7 @@ export default defineComponent({
       return this.$store.state.OldTrackers.length === 0;
     },
     getItens(): ITask[] {
-      return this.$store.state.data;
+      return this.$store.state.data.slice(0).reverse();
     },
   },
   methods: {

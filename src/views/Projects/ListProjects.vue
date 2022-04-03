@@ -62,7 +62,7 @@ export default defineComponent({
   },
   computed: {
     getProjects() {
-      return this.$store.state.projects;
+      return this.$store.state.projects.slice(0).reverse();
     },
   },
 });
