@@ -43,13 +43,21 @@
 
 
 <script lang="ts">
+import { AlertTypes } from "@/interfaces/IAlert";
+import { notifyMixin } from "@/mixins/notify";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ListProjects",
+  mixins:[notifyMixin],
   methods: {
     deleteProject(id: string) {
       this.$store.commit("deleteProject", {id})
+      this.notify(
+        AlertTypes.DANGER,
+        "Projeto Removido",
+        "Pronto foi removido! 👀, mas as atividades realizadas com ele permanecem! 🙌"
+      );
     }
   },
   computed: {

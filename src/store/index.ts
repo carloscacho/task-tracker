@@ -83,7 +83,7 @@ export const store = createStore<State>({
         state.alerts = state.alerts.filter(
           (alert) => alert.id != payload.alert.id
         );
-      }, 3000);
+      }, 3500);
     },
   },
 });

@@ -19,9 +19,9 @@
 
 
 <script lang="ts">
-import IAlert, { AlertTypes } from "@/interfaces/IAlert";
+import { AlertTypes } from "@/interfaces/IAlert";
 import { defineComponent } from "vue";
-import {notifyMixin} from "@/mixins/notify"
+import { notifyMixin } from "@/mixins/notify";
 
 export default defineComponent({
   name: "FormProjects",
@@ -43,14 +43,14 @@ export default defineComponent({
       this.projectName = project?.name || "";
     }
   },
-  mixins:[notifyMixin],
+  mixins: [notifyMixin],
   methods: {
     salvar() {
       if (this.projectName == "") {
         this.$store.commit("alertShow", {
           alert: {
             id: 0,
-            title: "Ops!",
+            title: "Ops campo em branco!",
             text: "Digite um nome valido para o projeto antes de tentar Salvar!",
             alertType: AlertTypes.DANGER,
           },
@@ -63,15 +63,20 @@ export default defineComponent({
           name: this.projectName,
         };
         this.$store.commit("editProject", { id: this.id, project });
+        this.notify(
+          AlertTypes.WARNING,
+          "Projeto Editado!",
+          "Pronto o nome do seu projeto foi editado! 👍"
+        );
       } else {
         this.$store.commit("addProject", { name: this.projectName });
+        this.notify(
+          AlertTypes.SUCCESS,
+          "Projeto salvo",
+          "Pronto o seu novo projeto está salvo ✌️"
+        );
       }
       this.projectName = "";
-      this.notify(
-        AlertTypes.SUCCESS,
-        "Projeto salvo",
-        "Pronto o seu novo projeto está salvo ✌️"
-      );
       this.$router.push("/projects");
     },
   },
