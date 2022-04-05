@@ -3,7 +3,7 @@
     <p v-if="!newDay">Click em iniciar o dia para ativar o tracker</p>
     <div v-if="newDay" class="columns">
       <div
-        class="column is-8"
+        class="column is-4"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
@@ -14,7 +14,19 @@
           v-model="description"
         />
       </div>
-      <div class="column">
+      <div class="column is-3">
+        <div class="select">
+          <select v-model="idProject">
+            <option value="">Selecione um projeto</option>
+            <option 
+              :value="project.id"
+              v-for="project in getProjects"
+              :key="project.id"
+            >{{project.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="column is-5">
         <TimerMachine @onTimerEnd="finishTask" />
       </div>
     </div>
@@ -34,11 +46,15 @@ export default defineComponent({
   data() {
     return {
       description: "",
+      idProject: ""
     };
   },
   computed: {
     newDay() {
       return this.$store.state.today !== ""
+    },
+    getProjects(){
+      return this.$store.state.projects
     }
   },
   methods: {
@@ -47,6 +63,7 @@ export default defineComponent({
         id: new Date().toISOString() + Math.random().toString(),
         timerInSeconds: timeStop,
         description: this.description,
+        project: this.$store.state.projects.find(proj => proj.id == this.idProject)
       });
       this.description = "";
     },

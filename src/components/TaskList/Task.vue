@@ -1,8 +1,11 @@
 <template>
   <div class="box has-text-weight-bold">
     <div class="columns">
-      <div class="column is-7">
+      <div class="column is-4">
         {{ item.description || "Tarefa sem descrição" }}
+      </div>
+      <div class="column is-3">
+        {{ item.project?.name || "N/D"}}
       </div>
       <div class="column is-3">
         <StopwatchView :timerInSeconds="item.timerInSeconds" />
@@ -56,7 +59,7 @@ export default defineComponent({
   },
   methods: {
     delete() {
-      this.$store.dispatch("deleteItem", this.item);
+      this.$store.commit("deleteItem", this.item);
     },
     showModal() {
       this.showModalBool = true

@@ -60,6 +60,28 @@
       </button>
       <total-timer :total="getTotalTimer" />
     </div>
+    <nav class="panel mt-4">
+      <ul class="panel-smart">
+        <li>
+          <router-link class="link" to="/">
+            <i class="fas fa-tasks"></i>
+            Tarefas
+          </router-link>
+        </li>
+        <li>
+          <router-link class="link" to="/projects">
+            <i class="fa-solid fa-folder-tree"></i>
+            Projetos
+          </router-link>
+        </li>
+        <li>
+          <router-link class="link" to="/trackers">
+            <i class="fa-solid fa-box-archive"></i>
+            Trackers
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
   <modal-msg
     title="Finalizar Tracker ?"
@@ -83,7 +105,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TotalTimer from "./TotalTimer.vue";
+import TotalTimer from "../formView/TotalTimer.vue";
 import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
@@ -104,7 +126,7 @@ export default defineComponent({
       visibilityTotal: true,
       store: useStore(),
       showModalFinish: false,
-      showModalAlert: false
+      showModalAlert: false,
     };
   },
   computed: {
@@ -127,10 +149,10 @@ export default defineComponent({
   },
   methods: {
     initDayWork() {
-      this.$store.dispatch("initDayWork");
+      this.$store.commit("initDayWork");
     },
     finishDayWork() {
-      this.$store.dispatch("finishDayWork");
+      this.$store.commit("finishDayWork");
     },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;
@@ -154,8 +176,7 @@ export default defineComponent({
     showModalEndDay() {
       if (this.$store.state.data.length === 0) {
         this.showModalAlert = true;
-      }
-      else {
+      } else {
         this.showModalFinish = true;
       }
     },
@@ -169,7 +190,7 @@ export default defineComponent({
       this.showModalAlert = false;
     },
     okModalAlert() {
-      this.$store.dispatch('cleanTotalTimer')
+      this.$store.commit("cleanTotalTimer");
       this.showModalAlert = false;
       this.showModalFinish = false;
     },
@@ -221,6 +242,22 @@ i {
   visibility: hidden;
   height: 0;
 }
+.panel li {
+  margin: 8px 0;
+}
+.link {
+  color: #fff;
+}
+.link:hover, i:hover {
+  color: rgb(98, 147, 253);
+}
+.link.router-link-active {
+  color: rgb(98, 147, 253);
+}
+.link > i {
+  font-size: 1rem;
+  margin: 1rem;
+}
 @media only screen and (min-width: 768px) {
   .isSmart {
     visibility: hidden;
@@ -230,12 +267,25 @@ i {
   .isNotSmart {
     visibility: visible;
   }
+
+  .panel-smart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media only screen and (max-width: 768px) {
   header {
     padding: 0.5rem;
     height: auto;
+  }
+  .panel-smart > li {
+    display: inline-flex;
+    padding-left: 5px;
+    padding-right: 5px;
+    flex-direction: column;
+    align-items: center;
   }
 
   .isSmart {
