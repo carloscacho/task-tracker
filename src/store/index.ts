@@ -4,7 +4,21 @@ import createPersistedState from "vuex-persistedstate";
 import State from "@/interfaces/State";
 import ITracker from "@/interfaces/ITracker";
 import IProject from "./../interfaces/IProjects";
-import { AlertTypes } from "@/interfaces/IAlert";
+import api from "./../http/index";
+import { GET_PROJECTS } from './actions-types';
+import {
+  ADD_ITEM,
+  ADD_PROJECTS,
+  CLEAN_ALL,
+  DELETE_ITEM,
+  DELETE_PROJECTS,
+  EDIT_PROJECTS,
+  FINISH_WORK_DAY,
+  INCREMENT_TOTAL,
+  INIT_PROJECTS,
+  INIT_WORK_DAY,
+  SHOW_ALERT,
+} from "./mutations-types";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -27,36 +41,27 @@ export const store = createStore<State>({
   getters: {
     getTotalTimer: (state) => state.totalTimer,
   },
+  actions: {
+    [GET_PROJECTS]({ commit }) {
+      api
+        .get("/projects")
+        .then((response) => commit(INIT_PROJECTS, response.data));
+    },
+  },
   mutations: {
-    addItem(state, payload) {
+    [ADD_ITEM](state, payload) {
       state.data.push(payload.item);
     },
-    addProject(state, payload) {
-      const project = {
-        id: new Date().toISOString(),
-        name: payload.name,
-      } as IProject;
-      state.projects.push(project);
-    },
-    editProject(state, payload) {
-      const index = state.projects.findIndex((proj) => proj.id == payload.id);
-      state.projects[index] = payload.project;
-    },
-    deleteProject(state, payload) {
-      state.projects = state.projects.filter(
-        (value) => value.id !== payload.id
-      );
-    },
-    deleteItem(state, payload) {
+    [DELETE_ITEM](state, payload) {
       state.data = state.data.filter((value) => value.id !== payload.id);
     },
-    incrementTotal(state, payload) {
+    [INCREMENT_TOTAL](state, payload) {
       state.totalTimer += payload.time;
     },
-    initDayWork(state) {
+    [INIT_WORK_DAY](state) {
       state.today = new Date().toLocaleDateString("en-GB");
     },
-    finishDayWork(state) {
+    [FINISH_WORK_DAY](state) {
       const tracker: ITracker = {
         id: new Date().toISOString() + Math.random().toString(),
         day: state.today,
@@ -69,14 +74,34 @@ export const store = createStore<State>({
       state.totalTimer = 0;
       console.log("salvando...", state.OldTrackers);
     },
-    cleanTotalTimer(state) {
+    [CLEAN_ALL](state) {
       //state.data = [];
       state.totalTimer = 0;
       state.today = "";
-      state.alerts = []
+      state.alerts = [];
       //state.OldTrackers = []
     },
-    alertShow(state, payload) {
+    [INIT_PROJECTS](state, projects) {
+      // iniciando os projetos
+      state.projects = projects;
+    },
+    [ADD_PROJECTS](state, payload) {
+      const project = {
+        id: new Date().toISOString(),
+        name: payload.name,
+      } as IProject;
+      state.projects.push(project);
+    },
+    [EDIT_PROJECTS](state, payload) {
+      const index = state.projects.findIndex((proj) => proj.id == payload.id);
+      state.projects[index] = payload.project;
+    },
+    [DELETE_PROJECTS](state, payload) {
+      state.projects = state.projects.filter(
+        (value) => value.id !== payload.id
+      );
+    },
+    [SHOW_ALERT](state, payload) {
       payload.alert.id = new Date().getTime();
       state.alerts.push(payload.alert);
       setTimeout(() => {

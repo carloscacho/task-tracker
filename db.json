@@ -1,0 +1,29 @@
+{
+  "projects": [
+    {
+      "id": "132",
+      "name": "Project 1"
+    },
+    {
+      "id": "231",
+      "name": "Project 2"
+    }
+  ],
+  "OldTrackers": [
+    {
+      "id": "tracker1",
+      "day": "06/01/2015",
+      "data": [
+        {
+          "id": "task1",
+          "timerInSeconds": 123456,
+          "description": "desc Task 1",
+          "project": {
+            "id": "132",
+            "name": "Project 1"
+          }
+        }
+      ]
+    }
+  ]
+}

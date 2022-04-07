@@ -36,6 +36,7 @@ import { defineComponent, PropType } from "vue";
 import StopwatchView from "../formView/StopwatchView.vue";
 import ITask from "../../interfaces/ITask";
 import ModalMsg from "../Utils/ModalMsg.vue";
+import { DELETE_ITEM } from "@/store/mutations-types";
 
 export default defineComponent({
   name: "TaskItem",
@@ -59,7 +60,7 @@ export default defineComponent({
   },
   methods: {
     delete() {
-      this.$store.commit("deleteItem", this.item);
+      this.$store.commit(DELETE_ITEM, this.item);
     },
     showModal() {
       this.showModalBool = true

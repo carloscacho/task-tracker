@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+import { ADD_ITEM, INCREMENT_TOTAL } from "@/store/mutations-types";
 import { defineComponent } from "vue";
 import FormTask from "../components/formView/FormTask.vue";
 import TaskItem from "../components/TaskList/Task.vue";
@@ -49,8 +50,8 @@ export default defineComponent({
   },
   methods: {
     saveTask(t: ITask) {
-      this.$store.commit("addItem", { item: t });
-      this.$store.commit("incrementTotal", { time: t.timerInSeconds });
+      this.$store.commit(ADD_ITEM, { item: t });
+      this.$store.commit(INCREMENT_TOTAL, { time: t.timerInSeconds });
     },
   },
 });

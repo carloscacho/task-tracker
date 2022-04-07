@@ -22,6 +22,7 @@
 import { AlertTypes } from "@/interfaces/IAlert";
 import { defineComponent } from "vue";
 import { notifyMixin } from "@/mixins/notify";
+import { ADD_PROJECTS, EDIT_PROJECTS, SHOW_ALERT } from "@/store/mutations-types";
 
 export default defineComponent({
   name: "FormProjects",
@@ -47,7 +48,7 @@ export default defineComponent({
   methods: {
     salvar() {
       if (this.projectName == "") {
-        this.$store.commit("alertShow", {
+        this.$store.commit(SHOW_ALERT, {
           alert: {
             id: 0,
             title: "Ops campo em branco!",
@@ -62,14 +63,14 @@ export default defineComponent({
           id: this.id,
           name: this.projectName,
         };
-        this.$store.commit("editProject", { id: this.id, project });
+        this.$store.commit(EDIT_PROJECTS, { id: this.id, project });
         this.notify(
           AlertTypes.WARNING,
           "Projeto Editado!",
           "Pronto o nome do seu projeto foi editado! 👍"
         );
       } else {
-        this.$store.commit("addProject", { name: this.projectName });
+        this.$store.commit(ADD_PROJECTS, { name: this.projectName });
         this.notify(
           AlertTypes.SUCCESS,
           "Projeto salvo",

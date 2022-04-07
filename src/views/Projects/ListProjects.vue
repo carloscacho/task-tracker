@@ -46,13 +46,16 @@
 import { AlertTypes } from "@/interfaces/IAlert";
 import { notifyMixin } from "@/mixins/notify";
 import { defineComponent } from "vue";
+import { useStore } from "@/store";
+import { DELETE_PROJECTS } from "@/store/mutations-types";
+import { GET_PROJECTS } from "@/store/actions-types";
 
 export default defineComponent({
   name: "ListProjects",
   mixins:[notifyMixin],
   methods: {
     deleteProject(id: string) {
-      this.$store.commit("deleteProject", {id})
+      this.$store.commit(DELETE_PROJECTS, {id})
       this.notify(
         AlertTypes.DANGER,
         "Projeto Removido",
@@ -65,6 +68,10 @@ export default defineComponent({
       return this.$store.state.projects.slice(0).reverse();
     },
   },
+  setup() {
+    const store = useStore()
+    store.dispatch(GET_PROJECTS)
+  }
 });
 </script>
 

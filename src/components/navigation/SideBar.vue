@@ -6,7 +6,7 @@
       <button
         class="button is-success is-fullwidth mr-4 mb-1"
         :class="{ today: isToday }"
-        @click="initDayWork"
+        @click="initWorkDay"
       >
         Iniciar o dia
       </button>
@@ -47,7 +47,7 @@
       <button
         class="button is-success is-fullwidth mr-4 mb-2 mt-2"
         :class="{ today: isToday }"
-        @click="initDayWork"
+        @click="initWorkDay"
       >
         Iniciar o dia
       </button>
@@ -110,6 +110,7 @@ import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
 import ModalMsg from "../Utils/ModalMsg.vue";
+import { CLEAN_ALL, FINISH_WORK_DAY, INIT_WORK_DAY } from "@/store/mutations-types";
 
 export default defineComponent({
   name: "SideBar",
@@ -148,11 +149,11 @@ export default defineComponent({
     },
   },
   methods: {
-    initDayWork() {
-      this.$store.commit("initDayWork");
+    initWorkDay() {
+      this.$store.commit(INIT_WORK_DAY);
     },
-    finishDayWork() {
-      this.$store.commit("finishDayWork");
+    finishWorkDay() {
+      this.$store.commit(FINISH_WORK_DAY);
     },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;
@@ -181,7 +182,7 @@ export default defineComponent({
       }
     },
     okModalEndDay() {
-      this.finishDayWork();
+      this.finishWorkDay();
       this.showModalFinish = false;
       this.showModalAlert = false;
     },
@@ -190,7 +191,7 @@ export default defineComponent({
       this.showModalAlert = false;
     },
     okModalAlert() {
-      this.$store.commit("cleanTotalTimer");
+      this.$store.commit(CLEAN_ALL);
       this.showModalAlert = false;
       this.showModalFinish = false;
     },

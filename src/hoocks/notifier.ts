@@ -1,5 +1,6 @@
 import { AlertTypes } from '@/interfaces/IAlert';
 import { store } from '@/store';
+import { SHOW_ALERT } from './../store/mutations-types';
 
 
 type Notifier = {
@@ -8,7 +9,7 @@ type Notifier = {
 
 export default () : Notifier => {
   const notify = (alertType: AlertTypes, title: string, text: string):void => {
-    store.commit("alertShow", {
+    store.commit(SHOW_ALERT, {
       alert: {
         id: 0,
         title,
