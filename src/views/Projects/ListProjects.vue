@@ -28,7 +28,10 @@
               </span>
               <span class="isNotSmart">Editar</span>
             </router-link>
-            <button class="button ml-2 is-danger" @click="deleteProject(proj.id)">
+            <button
+              class="button ml-2 is-danger"
+              @click="deleteProject(proj.id)"
+            >
               <span class="icon is-small">
                 <i class="fa-solid fa-trash"></i>
               </span>
@@ -48,20 +51,25 @@ import { notifyMixin } from "@/mixins/notify";
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 import { DELETE_PROJECTS } from "@/store/mutations-types";
-import { GET_PROJECTS } from "@/store/actions-types";
+import {
+  ACQUIRE_PROJECTS_GET,
+  REMOVE_PROJECT_DELETE,
+} from "@/store/actions-types";
 
 export default defineComponent({
   name: "ListProjects",
-  mixins:[notifyMixin],
+  mixins: [notifyMixin],
   methods: {
     deleteProject(id: string) {
-      this.$store.commit(DELETE_PROJECTS, {id})
-      this.notify(
-        AlertTypes.DANGER,
-        "Projeto Removido",
-        "Pronto foi removido! 👀, mas as atividades realizadas com ele permanecem! 🙌"
-      );
-    }
+      // this.$store.commit(DELETE_PROJECTS, {id})
+      this.$store.dispatch(REMOVE_PROJECT_DELETE, id).then(() => {
+        this.notify(
+          AlertTypes.DANGER,
+          "Projeto Removido",
+          "Pronto foi removido! 👀, mas as atividades realizadas com ele permanecem! 🙌"
+        );
+      });
+    },
   },
   computed: {
     getProjects() {
@@ -69,9 +77,9 @@ export default defineComponent({
     },
   },
   setup() {
-    const store = useStore()
-    store.dispatch(GET_PROJECTS)
-  }
+    const store = useStore();
+    store.dispatch(ACQUIRE_PROJECTS_GET);
+  },
 });
 </script>
 

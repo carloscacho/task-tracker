@@ -22,7 +22,10 @@
 import { AlertTypes } from "@/interfaces/IAlert";
 import { defineComponent } from "vue";
 import { notifyMixin } from "@/mixins/notify";
-import { ADD_PROJECTS, EDIT_PROJECTS, SHOW_ALERT } from "@/store/mutations-types";
+import {
+  SHOW_ALERT,
+} from "@/store/mutations-types";
+import { CHANGE_PROJECT_PUT, REGISTER_PROJECTS_POST } from "@/store/actions-types";
 
 export default defineComponent({
   name: "FormProjects",
@@ -63,22 +66,30 @@ export default defineComponent({
           id: this.id,
           name: this.projectName,
         };
-        this.$store.commit(EDIT_PROJECTS, { id: this.id, project });
-        this.notify(
-          AlertTypes.WARNING,
-          "Projeto Editado!",
-          "Pronto o nome do seu projeto foi editado! 👍"
-        );
+        // Commit para editar em local storage
+        // this.$store.commit(EDIT_PROJECTS, { id: this.id, project });
+        // dispatch para editar em banco de dados remoto
+        this.$store.dispatch(CHANGE_PROJECT_PUT, project).then(() => {
+          this.notify(
+            AlertTypes.WARNING,
+            "Projeto Editado!",
+            "Pronto o nome do seu projeto foi editado! 👍"
+          );
+        });
       } else {
-        this.$store.commit(ADD_PROJECTS, { name: this.projectName });
-        this.notify(
-          AlertTypes.SUCCESS,
-          "Projeto salvo",
-          "Pronto o seu novo projeto está salvo ✌️"
-        );
+        // Commit para salvamento em local storage
+        // this.$store.commit(ADD_PROJECTS, { name: this.projectName });
+        // dispatch para salvamento em banco de dados remoto
+        this.$store.dispatch(REGISTER_PROJECTS_POST, this.projectName).then(() => {
+          this.notify(
+            AlertTypes.SUCCESS,
+            "Projeto salvo",
+            "Pronto o seu novo projeto está salvo ✌️"
+          );
+          this.projectName = "";
+          this.$router.push("/projects");
+        });
       }
-      this.projectName = "";
-      this.$router.push("/projects");
     },
   },
 });

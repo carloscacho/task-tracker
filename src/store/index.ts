@@ -5,7 +5,12 @@ import State from "@/interfaces/State";
 import ITracker from "@/interfaces/ITracker";
 import IProject from "./../interfaces/IProjects";
 import api from "./../http/index";
-import { GET_PROJECTS } from './actions-types';
+import {
+  ACQUIRE_PROJECTS_GET,
+  REGISTER_PROJECTS_POST,
+  CHANGE_PROJECT_PUT,
+  REMOVE_PROJECT_DELETE,
+} from "./actions-types";
 import {
   ADD_ITEM,
   ADD_PROJECTS,
@@ -42,10 +47,22 @@ export const store = createStore<State>({
     getTotalTimer: (state) => state.totalTimer,
   },
   actions: {
-    [GET_PROJECTS]({ commit }) {
+    [ACQUIRE_PROJECTS_GET]({ commit }) {
       api
         .get("/projects")
         .then((response) => commit(INIT_PROJECTS, response.data));
+    },
+    [REGISTER_PROJECTS_POST](context, projectName: string) {
+      return api.post("/projects", {
+        name: projectName,
+      });
+    },
+    [CHANGE_PROJECT_PUT](context, project: IProject) {
+      return api.put(`/projects/${project.id}`, project);
+    },
+    [REMOVE_PROJECT_DELETE]({commit}, id: string) {
+      return api.delete(`/projects/${id}`)
+      .then(() => commit(DELETE_PROJECTS, {id}))
     },
   },
   mutations: {
