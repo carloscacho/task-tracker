@@ -4,10 +4,10 @@ import IProject from './IProjects';
 import IAlert from './IAlert';
 
 export default interface State {
-  data: ITask[];
+  tasks: ITask[]
+  projects: IProject[]
+  OldTrackers: ITracker[]
   totalTimer: number;
   today: string;
-  OldTrackers: ITracker[]
-  projects: IProject[]
   alerts: IAlert[]
 }

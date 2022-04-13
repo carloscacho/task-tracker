@@ -175,7 +175,7 @@ export default defineComponent({
       this.visibilityTotal = !this.visibilityTotal;
     },
     showModalEndDay() {
-      if (this.$store.state.data.length === 0) {
+      if (this.$store.state.tasks.length === 0) {
         this.showModalAlert = true;
       } else {
         this.showModalFinish = true;

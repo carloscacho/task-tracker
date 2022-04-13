@@ -7,10 +7,12 @@ import IProject from "./../interfaces/IProjects";
 import api from "./../http/index";
 import {
   ACQUIRE_PROJECTS_GET,
-  REGISTER_PROJECTS_POST,
+  REGISTER_PROJECT_POST,
   CHANGE_PROJECT_PUT,
   REMOVE_PROJECT_DELETE,
+  ACQUIRE_TASKS_GET,
 } from "./actions-types";
+import ITask from '@/interfaces/ITask';
 import {
   ADD_ITEM,
   ADD_PROJECTS,
@@ -21,6 +23,7 @@ import {
   FINISH_WORK_DAY,
   INCREMENT_TOTAL,
   INIT_PROJECTS,
+  INIT_TASK,
   INIT_WORK_DAY,
   SHOW_ALERT,
 } from "./mutations-types";
@@ -35,12 +38,12 @@ export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
   state: {
-    data: [],
     totalTimer: 0,
     today: "",
     OldTrackers: [],
     projects: [],
     alerts: [],
+    tasks:[]
   },
   plugins: [createPersistedState()],
   getters: {
@@ -52,7 +55,7 @@ export const store = createStore<State>({
         .get("/projects")
         .then((response) => commit(INIT_PROJECTS, response.data));
     },
-    [REGISTER_PROJECTS_POST](context, projectName: string) {
+    [REGISTER_PROJECT_POST](context, projectName: string) {
       return api.post("/projects", {
         name: projectName,
       });
@@ -64,13 +67,18 @@ export const store = createStore<State>({
       return api.delete(`/projects/${id}`)
       .then(() => commit(DELETE_PROJECTS, {id}))
     },
+    [ACQUIRE_TASKS_GET]({ commit }) {
+      api
+        .get("/tasks")
+        .then((response) => commit(INIT_TASK, response.data));
+    },
   },
   mutations: {
     [ADD_ITEM](state, payload) {
-      state.data.push(payload.item);
+      state.tasks.push(payload.item);
     },
     [DELETE_ITEM](state, payload) {
-      state.data = state.data.filter((value) => value.id !== payload.id);
+      state.tasks = state.tasks.filter((value) => value.id !== payload.id);
     },
     [INCREMENT_TOTAL](state, payload) {
       state.totalTimer += payload.time;
@@ -82,17 +90,17 @@ export const store = createStore<State>({
       const tracker: ITracker = {
         id: new Date().toISOString() + Math.random().toString(),
         day: state.today,
-        data: state.data,
+        tasks: state.tasks,
         totalTimer: state.totalTimer,
       };
       state.OldTrackers.push(tracker);
       state.today = "";
-      state.data = [];
+      state.tasks = [];
       state.totalTimer = 0;
       console.log("salvando...", state.OldTrackers);
     },
     [CLEAN_ALL](state) {
-      //state.data = [];
+      //state.tasks = [];
       state.totalTimer = 0;
       state.today = "";
       state.alerts = [];
@@ -117,6 +125,10 @@ export const store = createStore<State>({
       state.projects = state.projects.filter(
         (value) => value.id !== payload.id
       );
+    },
+    [INIT_TASK](state, tasks: ITask[]) {
+      // iniciando os projetos
+      state.tasks = tasks;
     },
     [SHOW_ALERT](state, payload) {
       payload.alert.id = new Date().getTime();

@@ -1,4 +1,5 @@
 // TASK ITENS
+export const INIT_TASK = "INIT_TASK"
 export const ADD_ITEM = "ADD_ITEM"
 export const DELETE_ITEM = "DELETE_ITEM"
 // PROJECTS

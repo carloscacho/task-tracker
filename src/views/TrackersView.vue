@@ -12,7 +12,7 @@
             :expanded="false"
           >
             <TaskItem
-              v-for="it in item.data.slice(0).reverse()"
+              v-for="it in item.tasks?.slice(0).reverse()"
               :key="it.id"
               :item="it"
               :showBtns="false"

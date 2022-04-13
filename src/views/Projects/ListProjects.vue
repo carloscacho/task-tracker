@@ -50,7 +50,6 @@ import { AlertTypes } from "@/interfaces/IAlert";
 import { notifyMixin } from "@/mixins/notify";
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
-import { DELETE_PROJECTS } from "@/store/mutations-types";
 import {
   ACQUIRE_PROJECTS_GET,
   REMOVE_PROJECT_DELETE,

@@ -1,4 +1,23 @@
 {
+  "tasks": [],
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$j/dqow63Ycei2YOdjj0ehOcHmVqSOp.YnhU3UABmg3UGsOoGNCyru",
+      "firstname": "Olivier",
+      "lastname": "Monge",
+      "age": 32,
+      "id": 1
+    },
+    {
+      "email": "carlos@mail.com",
+      "password": "$2a$10$.pHqcsh.j1h9eWpxDMRMPuEJAZsQtwGV5Ss5iiPM/XVXvOiplP78G",
+      "firstname": "Carlos",
+      "lastname": "Cacho",
+      "age": 33,
+      "id": 2
+    }
+  ],
   "projects": [
     {
       "id": "132",
@@ -7,13 +26,17 @@
     {
       "id": "231",
       "name": "Project 2"
+    },
+    {
+      "name": "testes vue",
+      "id": "kQATVMT"
     }
   ],
   "OldTrackers": [
     {
       "id": "tracker1",
       "day": "06/01/2015",
-      "data": [
+      "tasks": [
         {
           "id": "task1",
           "timerInSeconds": 123456,

@@ -15,8 +15,10 @@
 </template>
 
 <script lang="ts">
+import { useStore } from "@/store";
+import { ACQUIRE_TASKS_GET } from "@/store/actions-types";
 import { ADD_ITEM, INCREMENT_TOTAL } from "@/store/mutations-types";
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import FormTask from "../components/formView/FormTask.vue";
 import TaskItem from "../components/TaskList/Task.vue";
 import TaskList from "../components/TaskList/TaskList.vue";
@@ -38,14 +40,14 @@ export default defineComponent({
       return this.$store.state.OldTrackers;
     },
     isEmptyList(): boolean {
-      return this.$store.state.data.length === 0;
+      return this.tasks.length === 0;
     },
     isEmptyOldList(): boolean {
       console.log(this.$store.state.OldTrackers);
       return this.$store.state.OldTrackers.length === 0;
     },
     getItens(): ITask[] {
-      return this.$store.state.data.slice(0).reverse();
+      return this.tasks.slice(0).reverse();
     },
   },
   methods: {
@@ -54,6 +56,13 @@ export default defineComponent({
       this.$store.commit(INCREMENT_TOTAL, { time: t.timerInSeconds });
     },
   },
+  setup() {
+    const store = useStore()
+    store.dispatch(ACQUIRE_TASKS_GET)
+    return {
+      tasks: computed(() => store.state.tasks)
+    }
+  }
 });
 </script>
 

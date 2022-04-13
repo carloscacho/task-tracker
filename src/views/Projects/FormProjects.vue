@@ -25,7 +25,7 @@ import { notifyMixin } from "@/mixins/notify";
 import {
   SHOW_ALERT,
 } from "@/store/mutations-types";
-import { CHANGE_PROJECT_PUT, REGISTER_PROJECTS_POST } from "@/store/actions-types";
+import { CHANGE_PROJECT_PUT, REGISTER_PROJECT_POST } from "@/store/actions-types";
 
 export default defineComponent({
   name: "FormProjects",
@@ -80,7 +80,7 @@ export default defineComponent({
         // Commit para salvamento em local storage
         // this.$store.commit(ADD_PROJECTS, { name: this.projectName });
         // dispatch para salvamento em banco de dados remoto
-        this.$store.dispatch(REGISTER_PROJECTS_POST, this.projectName).then(() => {
+        this.$store.dispatch(REGISTER_PROJECT_POST, this.projectName).then(() => {
           this.notify(
             AlertTypes.SUCCESS,
             "Projeto salvo",
