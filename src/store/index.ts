@@ -11,21 +11,24 @@ import {
   CHANGE_PROJECT_PUT,
   REMOVE_PROJECT_DELETE,
   ACQUIRE_TASKS_GET,
+  REGISTER_TASK_POST,
+  CHANGE_TASK_PUT,
+  REMOVE_TASK_DELETE,
 } from "./actions-types";
-import ITask from '@/interfaces/ITask';
+import ITask from "@/interfaces/ITask";
 import {
-  ADD_ITEM,
+  ADD_TASK,
   ADD_PROJECTS,
   CLEAN_ALL,
   DELETE_ITEM,
   DELETE_PROJECTS,
   EDIT_PROJECTS,
   FINISH_WORK_DAY,
-  INCREMENT_TOTAL,
   INIT_PROJECTS,
   INIT_TASK,
   INIT_WORK_DAY,
   SHOW_ALERT,
+  EDIT_TASK,
 } from "./mutations-types";
 
 declare module "@vue/runtime-core" {
@@ -43,7 +46,7 @@ export const store = createStore<State>({
     OldTrackers: [],
     projects: [],
     alerts: [],
-    tasks:[]
+    tasks: [],
   },
   plugins: [createPersistedState()],
   getters: {
@@ -63,25 +66,43 @@ export const store = createStore<State>({
     [CHANGE_PROJECT_PUT](context, project: IProject) {
       return api.put(`/projects/${project.id}`, project);
     },
-    [REMOVE_PROJECT_DELETE]({commit}, id: string) {
-      return api.delete(`/projects/${id}`)
-      .then(() => commit(DELETE_PROJECTS, {id}))
+    [REMOVE_PROJECT_DELETE]({ commit }, id: string) {
+      return api
+        .delete(`/projects/${id}`)
+        .then(() => commit(DELETE_PROJECTS, { id }));
     },
     [ACQUIRE_TASKS_GET]({ commit }) {
-      api
-        .get("/tasks")
-        .then((response) => commit(INIT_TASK, response.data));
+      api.get("/tasks").then((response) => commit(INIT_TASK, response.data));
+    },
+    [REGISTER_TASK_POST]({ commit }, task) {
+      return api
+        .post("/tasks", task)
+        .then((resp) => commit(ADD_TASK, { task: resp.data }));
+    },
+    [CHANGE_TASK_PUT]({ commit }, task: ITask) {
+      return api
+        .put(`/tasks/${task.id}`, task)
+        .then(() => commit(EDIT_TASK, task));
+    },
+    [REMOVE_TASK_DELETE]({ commit }, task: ITask) {
+      return api
+        .delete(`/tasks/${task.id}`)
+        .then(() => commit(DELETE_ITEM, { id: task.id }));
     },
   },
   mutations: {
-    [ADD_ITEM](state, payload) {
-      state.tasks.push(payload.item);
+    [ADD_TASK](state, payload) {
+      state.tasks.push(payload.task);
+      state.totalTimer += payload.task.timerInSeconds;
+    },
+    [EDIT_TASK](state, task) {
+      const list = state.tasks.map((value) => {
+        return value.id == task.id ? task : value;
+      });
+      state.tasks = list;
     },
     [DELETE_ITEM](state, payload) {
       state.tasks = state.tasks.filter((value) => value.id !== payload.id);
-    },
-    [INCREMENT_TOTAL](state, payload) {
-      state.totalTimer += payload.time;
     },
     [INIT_WORK_DAY](state) {
       state.today = new Date().toLocaleDateString("en-GB");

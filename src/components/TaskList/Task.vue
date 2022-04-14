@@ -11,10 +11,10 @@
         <StopwatchView :timerInSeconds="item.timerInSeconds" />
       </div>
       <div v-if="showBtns" class="column is-flex is-align-items-center is-justify-content-end">
-        <button class="button is-warning mr-2">
+        <button class="button is-warning mr-2" @click="holderModalEdit">
           <i class="fa fa-pencil"></i>
         </button>
-        <button class="button is-danger" @click="showModal">
+        <button class="button is-danger" @click="showModalDelete">
           <i class="fa fa-trash"></i>
         </button>
       </div>
@@ -22,13 +22,15 @@
   </div>
   <modal-msg
     title="Deletar tarefa ?"
-    content="Você tem certeza que deseja deletar a Tarefa, se sim click em confirmar, se não em cancelar."
     btnText="Confirmar"
-    :show="showModalBool"
+    :show="showModalDeleteBool"
     colorModal="is-danger"
     @okClick="okModalDel"
     @cancelClick="cancelModalDel"
-  />
+  >
+  <p>Você tem certeza que deseja deletar a Tarefa, 
+    se sim click em confirmar, se não em cancelar.</p>
+  </modal-msg>
 </template>
 
 <script lang="ts">
@@ -36,13 +38,14 @@ import { defineComponent, PropType } from "vue";
 import StopwatchView from "../formView/StopwatchView.vue";
 import ITask from "../../interfaces/ITask";
 import ModalMsg from "../Utils/ModalMsg.vue";
-import { DELETE_ITEM } from "@/store/mutations-types";
+import { REMOVE_TASK_DELETE } from "@/store/actions-types";
 
 export default defineComponent({
   name: "TaskItem",
+  emits:["onClickEdit"],
   data () {
     return {
-      showModalBool: false
+      showModalDeleteBool: false
     }
   },
   components: {
@@ -59,18 +62,21 @@ export default defineComponent({
     }
   },
   methods: {
-    delete() {
-      this.$store.commit(DELETE_ITEM, this.item);
+    holderModalEdit(){
+      this.$emit("onClickEdit", this.item)
     },
-    showModal() {
-      this.showModalBool = true
+    delete() {
+      this.$store.dispatch(REMOVE_TASK_DELETE, this.item)
+    },
+    showModalDelete() {
+      this.showModalDeleteBool = true
     },
     okModalDel() {
       this.delete()
-      this.showModalBool = false
+      this.showModalDeleteBool = false
     },
     cancelModalDel() {
-      this.showModalBool = false
+      this.showModalDeleteBool = false
     }
   },
 });

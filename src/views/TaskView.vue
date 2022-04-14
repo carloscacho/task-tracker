@@ -6,31 +6,61 @@
       :oldTotalTimer="getTotalTimer"
       :expanded="true"
     >
-      <TaskItem v-for="(item, index) in getItens" :key="index" :item="item" />
+      <TaskItem v-for="(item, index) in getItens" :key="index" :item="item" @onClickEdit="editItem" />
     </TaskList>
     <card-text v-if="isEmptyList">
       <span class="textMode"> "Não há nenhuma tarefa finalizada hoje" </span>
     </card-text>
   </div>
+  <modal-msg
+    title="Editar Tarefa ?"
+    btnText="Editar"
+    :show="showModalEditTask"
+    colorModal="is-warning"
+    @okClick="okEditModal"
+    @cancelClick="cancelEditModal"
+  >
+    <div class="field">
+      <label class="label">Editar tarefa</label>
+      <div class="control has-icons-left">
+        <input
+          class="input is-warning"
+          type="text"
+          v-model="editTask.description"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-pencil"></i>
+        </span>
+      </div>
+    </div>
+  </modal-msg>
 </template>
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { ACQUIRE_TASKS_GET } from "@/store/actions-types";
-import { ADD_ITEM, INCREMENT_TOTAL } from "@/store/mutations-types";
+import { ACQUIRE_TASKS_GET, CHANGE_TASK_PUT, REGISTER_TASK_POST } from "@/store/actions-types";
 import { computed, defineComponent } from "vue";
 import FormTask from "../components/formView/FormTask.vue";
 import TaskItem from "../components/TaskList/Task.vue";
 import TaskList from "../components/TaskList/TaskList.vue";
 
+import ModalMsg from "../components/Utils/ModalMsg.vue";
+
 import ITask from "../interfaces/ITask";
 
 export default defineComponent({
   name: "TaskView",
+  data(){
+    return {
+      showModalEditTask: false,
+      editTask: {} as ITask
+    }
+  },
   components: {
     FormTask,
     TaskItem,
     TaskList,
+    ModalMsg,
   },
   computed: {
     getTotalTimer() {
@@ -51,18 +81,28 @@ export default defineComponent({
     },
   },
   methods: {
-    saveTask(t: ITask) {
-      this.$store.commit(ADD_ITEM, { item: t });
-      this.$store.commit(INCREMENT_TOTAL, { time: t.timerInSeconds });
+    saveTask(task: ITask) {
+      this.$store.dispatch(REGISTER_TASK_POST, task);
     },
+    editItem(item: ITask){
+      this.editTask = Object.assign({}, item);
+      this.showModalEditTask = true
+    },
+    okEditModal(){
+      this.$store.dispatch(CHANGE_TASK_PUT, this.editTask);
+      this.showModalEditTask = false
+    },
+    cancelEditModal(){
+      this.showModalEditTask = false
+    }
   },
   setup() {
-    const store = useStore()
-    store.dispatch(ACQUIRE_TASKS_GET)
+    const store = useStore();
+    store.dispatch(ACQUIRE_TASKS_GET);
     return {
-      tasks: computed(() => store.state.tasks)
-    }
-  }
+      tasks: computed(() => store.state.tasks),
+    };
+  },
 });
 </script>
 

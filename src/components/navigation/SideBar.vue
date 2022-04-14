@@ -85,22 +85,28 @@
   </header>
   <modal-msg
     title="Finalizar Tracker ?"
-    content="Você tem certeza que deseja finalizar o tracker por hoje? se finalizar não será possível deletar e editar tarefas de hoje"
     btnText="Confirmar"
     :show="showModalFinish"
     colorModal="is-success"
     @okClick="okModalEndDay"
     @cancelClick="cancelModalEndDay"
-  />
+  >
+  <p>Você tem certeza que deseja finalizar o tracker por hoje? 
+    se finalizar não será possível deletar e editar tarefas de hoje</p>
+  </modal-msg>
   <modal-msg
     title="Aviso!!!"
-    content="Você iniciou o dia, mas não fez nenhuma atividade, não há como salvar nada, deseja fechar o tracker"
     btnText="Fechar"
     :show="showModalAlert"
     colorModal="is-danger"
     @okClick="okModalAlert"
     @cancelClick="cancelModalAlert"
-  />
+  >
+  
+   <p>Você iniciou o dia, mas não fez nenhuma atividade, 
+     não há como salvar nada, deseja fechar o tracker</p>
+
+  </modal-msg>
 </template>
 
 <script lang="ts">

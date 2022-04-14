@@ -7,7 +7,7 @@
         <button class="delete" aria-label="close" @click="cancelClick"></button>
       </header>
       <section class="modal-card-body">
-        {{ content }}
+        <slot></slot>
       </section>
       <footer class="modal-card-foot is-justify-content-flex-end">
         <button class="button" @click="cancelClick">Cancel</button>
@@ -26,16 +26,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "ModalMsg",
   emits: ["okClick", "cancelClick"],
-  // data() {
-  //   return {
-  //     isShow: false,
-  //   };
-  // },
   props: {
-    content: {
-      type: String,
-      default: "",
-    },
     btnText: {
       type: String,
       default: "OK",
