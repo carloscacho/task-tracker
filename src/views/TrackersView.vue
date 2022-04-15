@@ -5,7 +5,7 @@
       <article class="panel mt-4">
         <div class="p-4">
           <TaskList
-            v-for="item in getOldItens"
+            v-for="item in getTrackers"
             :key="item.id"
             :oldDate="item.day"
             :oldTotalTimer="item.totalTimer"
@@ -25,6 +25,8 @@
 </template>
 
 <script lang="ts">
+import { useStore } from "@/store";
+import { ACQUIRE_TRACKERS_GET } from "@/store/actions-types";
 import { defineComponent } from "vue";
 import TaskItem from "../components/TaskList/Task.vue";
 import TaskList from "../components/TaskList/TaskList.vue";
@@ -35,8 +37,12 @@ export default defineComponent({
     TaskItem,
     TaskList,
   },
+  setup() {
+  const store = useStore();
+  store.dispatch(ACQUIRE_TRACKERS_GET);
+},
   computed: {
-    getOldItens() {
+    getTrackers() {
       return this.$store.state.OldTrackers.slice(0).reverse();
     },
     isEmptyOldList(): boolean {

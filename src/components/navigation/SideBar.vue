@@ -117,6 +117,7 @@ import CardText from "../Utils/CardText.vue";
 import { useStore } from "../../store";
 import ModalMsg from "../Utils/ModalMsg.vue";
 import { CLEAN_ALL, FINISH_WORK_DAY, INIT_WORK_DAY } from "@/store/mutations-types";
+import { REGISTER_TRACKER_POST } from "@/store/actions-types";
 
 export default defineComponent({
   name: "SideBar",
@@ -159,7 +160,7 @@ export default defineComponent({
       this.$store.commit(INIT_WORK_DAY);
     },
     finishWorkDay() {
-      this.$store.commit(FINISH_WORK_DAY);
+      this.$store.dispatch(REGISTER_TRACKER_POST);
     },
     changeModeHeader(darkMode: boolean) {
       this.isDarkMode = darkMode;

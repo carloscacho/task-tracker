@@ -14,13 +14,17 @@ import {
   REGISTER_TASK_POST,
   CHANGE_TASK_PUT,
   REMOVE_TASK_DELETE,
+  ACQUIRE_TRACKERS_GET,
+  REGISTER_TRACKER_POST,
+  CHANGE_TRACKERS_PUT,
+  REMOVE_TRACKERS_DELETE,
 } from "./actions-types";
 import ITask from "@/interfaces/ITask";
 import {
   ADD_TASK,
   ADD_PROJECTS,
   CLEAN_ALL,
-  DELETE_ITEM,
+  DELETE_TASK,
   DELETE_PROJECTS,
   EDIT_PROJECTS,
   FINISH_WORK_DAY,
@@ -29,6 +33,10 @@ import {
   INIT_WORK_DAY,
   SHOW_ALERT,
   EDIT_TASK,
+  INIT_TRACKERS,
+  ADD_TRACKER,
+  EDIT_TRACKER,
+  DELETE_TRACKER,
 } from "./mutations-types";
 
 declare module "@vue/runtime-core" {
@@ -87,8 +95,41 @@ export const store = createStore<State>({
     [REMOVE_TASK_DELETE]({ commit }, task: ITask) {
       return api
         .delete(`/tasks/${task.id}`)
-        .then(() => commit(DELETE_ITEM, { id: task.id }));
+        .then(() => commit(DELETE_TASK, { task }));
     },
+    // TRACKERS
+    [ACQUIRE_TRACKERS_GET]({ commit }) {
+      api
+        .get("/trackers")
+        .then((response) => commit(INIT_TRACKERS, response.data));
+    },
+    [REGISTER_TRACKER_POST]({ commit }) {
+      const tracker: ITracker = {
+        id: new Date().toISOString() + Math.random().toString(),
+        day: this.state.today,
+        tasks: this.state.tasks,
+        totalTimer: this.state.totalTimer,
+      };
+      
+      return api.post("/trackers", tracker).then((resp) => {
+        this.state.tasks.map(value => {
+          api.delete(`/tasks/${value.id}`)
+        })
+        commit(ADD_TRACKER, { tracker: resp.data });
+        commit(CLEAN_ALL);
+        
+      });
+    },
+    // [CHANGE_TRACKERS_PUT]({ commit }, tracker: ITracker) {
+    //   return api
+    //     .put(`/trackers/${tracker.id}`, tracker)
+    //     .then(() => commit(EDIT_TRACKER, tracker));
+    // },
+    // [REMOVE_TRACKERS_DELETE]({ commit }, tracker: ITracker) {
+    //   return api
+    //     .delete(`/trackers/${tracker.id}`)
+    //     .then(() => commit(DELETE_TRACKER, { tracker }));
+    // },
   },
   mutations: {
     [ADD_TASK](state, payload) {
@@ -101,27 +142,18 @@ export const store = createStore<State>({
       });
       state.tasks = list;
     },
-    [DELETE_ITEM](state, payload) {
-      state.tasks = state.tasks.filter((value) => value.id !== payload.id);
+    [DELETE_TASK](state, payload) {
+      state.tasks = state.tasks.filter((value) => value.id !== payload.task.id);
+      state.totalTimer -= payload.task.timerInSeconds;
     },
     [INIT_WORK_DAY](state) {
       state.today = new Date().toLocaleDateString("en-GB");
     },
-    [FINISH_WORK_DAY](state) {
-      const tracker: ITracker = {
-        id: new Date().toISOString() + Math.random().toString(),
-        day: state.today,
-        tasks: state.tasks,
-        totalTimer: state.totalTimer,
-      };
-      state.OldTrackers.push(tracker);
-      state.today = "";
-      state.tasks = [];
-      state.totalTimer = 0;
-      console.log("salvando...", state.OldTrackers);
+    [ADD_TRACKER](state, payload) {
+      state.OldTrackers.push(payload.tracker);
     },
     [CLEAN_ALL](state) {
-      //state.tasks = [];
+      state.tasks = [];
       state.totalTimer = 0;
       state.today = "";
       state.alerts = [];

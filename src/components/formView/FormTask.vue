@@ -60,6 +60,7 @@ export default defineComponent({
   methods: {
     finishTask(timeStop: number): void {
       this.$emit("onSalveTask", {
+        id: new Date().toISOString() + Math.random().toString(),
         timerInSeconds: timeStop,
         description: this.description,
         project: this.$store.state.projects.find(proj => proj.id == this.idProject)

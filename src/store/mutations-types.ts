@@ -2,7 +2,7 @@
 export const INIT_TASK = "INIT_TASK"
 export const ADD_TASK = "ADD_TASK"
 export const EDIT_TASK = "EDIT_TASK"
-export const DELETE_ITEM = "DELETE_ITEM"
+export const DELETE_TASK = "DELETE_TASK"
 // PROJECTS
 export const INIT_PROJECTS = "INIT_PROJECTS"
 export const ADD_PROJECTS = "ADD_PROJECTS"
@@ -14,3 +14,8 @@ export const FINISH_WORK_DAY = "FINISH_WORK_DAY"
 export const CLEAN_ALL = "CLEAN_ALL"
 // ALERTS
 export const SHOW_ALERT = "SHOW_ALERT"
+// TRACKERS
+export const INIT_TRACKERS = "INIT_TRACKERS"
+export const ADD_TRACKER = "ADD_TRACKER"
+export const EDIT_TRACKER = "EDIT_TRACKER"
+export const DELETE_TRACKER = "DELETE_TRACKER"
