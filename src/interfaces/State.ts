@@ -1,11 +1,11 @@
-import ITask from './ITask';
 import ITracker from './ITracker';
-import IProject from './IProjects';
 import IAlert from './IAlert';
+import { ProjectState } from './../store/modules/project/index';
+import { TaskState } from './../store/modules/task/index';
 
 export default interface State {
-  tasks: ITask[]
-  projects: IProject[]
+  task: TaskState
+  project: ProjectState
   OldTrackers: ITracker[]
   totalTimer: number;
   today: string;

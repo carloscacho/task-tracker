@@ -54,7 +54,7 @@ export default defineComponent({
       return this.$store.state.today !== ""
     },
     getProjects(){
-      return this.$store.state.projects
+      return this.$store.state.project.projects
     }
   },
   methods: {
@@ -63,7 +63,7 @@ export default defineComponent({
         id: new Date().toISOString() + Math.random().toString(),
         timerInSeconds: timeStop,
         description: this.description,
-        project: this.$store.state.projects.find(proj => proj.id == this.idProject)
+        project: this.$store.state.project.projects.find(proj => proj.id == this.idProject)
       });
       this.description = "";
     },

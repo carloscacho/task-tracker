@@ -72,7 +72,8 @@ export default defineComponent({
   },
   computed: {
     getProjects() {
-      return this.$store.state.projects.slice(0).reverse();
+      let list = this.$store.state.project.projects
+      return list ? list.slice(0).reverse() : []
     },
   },
   setup() {

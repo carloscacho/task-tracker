@@ -2,13 +2,13 @@
   <FormTask @onSalveTask="saveTask" />
   <div class="taskList">
     <TaskList
-      v-if="!isEmptyList"
+      v-if="!isEmptyTaskList"
       :oldTotalTimer="getTotalTimer"
       :expanded="true"
     >
       <TaskItem v-for="(item, index) in getItens" :key="index" :item="item" @onClickEdit="editItem" />
     </TaskList>
-    <card-text v-if="isEmptyList">
+    <card-text v-if="isEmptyTaskList">
       <span class="textMode"> "Não há nenhuma tarefa finalizada hoje" </span>
     </card-text>
   </div>
@@ -69,12 +69,8 @@ export default defineComponent({
     getOldItens() {
       return this.$store.state.OldTrackers;
     },
-    isEmptyList(): boolean {
+    isEmptyTaskList(): boolean {
       return this.tasks.length === 0;
-    },
-    isEmptyOldList(): boolean {
-      console.log(this.$store.state.OldTrackers);
-      return this.$store.state.OldTrackers.length === 0;
     },
     getItens(): ITask[] {
       return this.tasks.slice(0).reverse();
@@ -100,7 +96,7 @@ export default defineComponent({
     const store = useStore();
     store.dispatch(ACQUIRE_TASKS_GET);
     return {
-      tasks: computed(() => store.state.tasks),
+      tasks: computed(() => store.state.task.tasks),
     };
   },
 });

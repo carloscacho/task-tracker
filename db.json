@@ -1,296 +1,56 @@
 {
   "tasks": [],
-  "users": [
+  "trackers": [
     {
-      "email": "olivier@mail.com",
-      "password": "$2a$10$j/dqow63Ycei2YOdjj0ehOcHmVqSOp.YnhU3UABmg3UGsOoGNCyru",
-      "firstname": "Olivier",
-      "lastname": "Monge",
-      "age": 32,
-      "id": 1
+      "id": "2022-04-16T22:43:05.610Z0.6469334335888866",
+      "day": "16/04/2022",
+      "tasks": [
+        {
+          "id": "2022-04-16T22:42:42.499Z0.34120912930374403",
+          "timerInSeconds": 6,
+          "description": "teste 1",
+          "project": {
+            "name": "Vuex",
+            "id": 1
+          }
+        },
+        {
+          "id": "2022-04-16T22:43:02.277Z0.04391841948570452",
+          "timerInSeconds": 11,
+          "description": "teste 2",
+          "project": {
+            "name": "brContabilidade",
+            "id": 2
+          }
+        }
+      ],
+      "totalTimer": 17
     },
     {
-      "email": "carlos@mail.com",
-      "password": "$2a$10$.pHqcsh.j1h9eWpxDMRMPuEJAZsQtwGV5Ss5iiPM/XVXvOiplP78G",
-      "firstname": "Carlos",
-      "lastname": "Cacho",
-      "age": 33,
-      "id": 2
+      "id": "2022-04-16T22:44:09.945Z0.12453260051202952",
+      "day": "16/04/2022",
+      "tasks": [
+        {
+          "id": "2022-04-16T22:43:47.204Z0.09831568204425278",
+          "timerInSeconds": 5,
+          "description": "aaaaa",
+          "project": {
+            "name": "Vuex",
+            "id": 1
+          }
+        }
+      ],
+      "totalTimer": 5
     }
   ],
   "projects": [
     {
-      "id": "132",
-      "name": "Project 1"
+      "name": "Vuex",
+      "id": 1
     },
     {
-      "id": "231",
-      "name": "Project 2"
-    },
-    {
-      "name": "testes vue",
-      "id": "kQATVMT"
-    }
-  ],
-  "trackers": [
-    {
-      "id": "2022-04-15T00:49:59.540Z0.19135205941007705",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T00:49:48.344Z0.6807437200415873",
-          "timerInSeconds": 4,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T00:49:55.985Z0.953632740038012",
-          "timerInSeconds": 2,
-          "description": "aaaaa",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 4
-    },
-    {
-      "id": "2022-04-15T00:54:09.407Z0.09343509702799602",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T00:49:48.344Z0.6807437200415873",
-          "timerInSeconds": 4,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T00:49:55.985Z0.953632740038012",
-          "timerInSeconds": 2,
-          "description": "aaaaa",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 0
-    },
-    {
-      "id": "2022-04-15T00:54:26.847Z0.59557659975776",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T00:49:48.344Z0.6807437200415873",
-          "timerInSeconds": 4,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T00:49:55.985Z0.953632740038012",
-          "timerInSeconds": 2,
-          "description": "aaaaa",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        },
-        {
-          "id": "2022-04-15T00:54:24.243Z0.18164900922200578",
-          "timerInSeconds": 0,
-          "description": "aaaa",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        }
-      ],
-      "totalTimer": 0
-    },
-    {
-      "id": "2022-04-15T00:56:15.453Z0.7390096370098282",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T00:49:55.985Z0.953632740038012",
-          "timerInSeconds": 2,
-          "description": "aaaaa",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        },
-        {
-          "id": "2022-04-15T00:54:24.243Z0.18164900922200578",
-          "timerInSeconds": 0,
-          "description": "aaaa",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        }
-      ],
-      "totalTimer": 0
-    },
-    {
-      "id": "2022-04-15T01:01:02.713Z0.9755190047665161",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T01:00:54.858Z0.7653641797011781",
-          "timerInSeconds": 1,
-          "description": "aaaaaaaa",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        }
-      ],
-      "totalTimer": 1
-    },
-    {
-      "id": "2022-04-15T01:05:49.332Z0.6717717577583817",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T01:05:35.937Z0.4780134227148376",
-          "timerInSeconds": 2,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T01:05:46.186Z0.13036241439407537",
-          "timerInSeconds": 3,
-          "description": "teste 2",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 5
-    },
-    {
-      "id": "2022-04-15T01:26:37.209Z0.1472420851114593",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T01:05:35.937Z0.4780134227148376",
-          "timerInSeconds": 2,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T01:05:46.186Z0.13036241439407537",
-          "timerInSeconds": 3,
-          "description": "teste 2",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 0
-    },
-    {
-      "id": "2022-04-15T01:28:19.894Z0.5535900309274311",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T01:05:35.937Z0.4780134227148376",
-          "timerInSeconds": 2,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T01:05:46.186Z0.13036241439407537",
-          "timerInSeconds": 3,
-          "description": "teste 2",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 0
-    },
-    {
-      "id": "2022-04-15T01:29:46.713Z0.9226999374924367",
-      "day": "14/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T01:29:37.529Z0.20138313482242154",
-          "timerInSeconds": 4,
-          "description": "teste",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T01:29:43.806Z0.7987856882670243",
-          "timerInSeconds": 1,
-          "description": "aaaaaa",
-          "project": {
-            "id": "231",
-            "name": "Project 2"
-          }
-        }
-      ],
-      "totalTimer": 5
-    },
-    {
-      "id": "2022-04-15T04:09:01.693Z0.11869697068055851",
-      "day": "15/04/2022",
-      "tasks": [
-        {
-          "id": "2022-04-15T04:08:05.292Z0.1315170634939924",
-          "timerInSeconds": 5,
-          "description": "folga",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        },
-        {
-          "id": "2022-04-15T04:08:50.997Z0.7173555011606174",
-          "timerInSeconds": 4,
-          "description": "testativasss",
-          "project": {
-            "name": "testes vue",
-            "id": "kQATVMT"
-          }
-        },
-        {
-          "id": "2022-04-15T04:08:57.506Z0.9467290395333685",
-          "timerInSeconds": 2,
-          "description": "aaaaaaa",
-          "project": {
-            "id": "132",
-            "name": "Project 1"
-          }
-        }
-      ],
-      "totalTimer": 11
+      "name": "brContabilidade",
+      "id": 2
     }
   ]
 }
