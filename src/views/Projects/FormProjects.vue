@@ -20,76 +20,79 @@
 
 <script lang="ts">
 import { AlertTypes } from "@/interfaces/IAlert";
-import { defineComponent } from "vue";
-import { notifyMixin } from "@/mixins/notify";
+import { defineComponent, ref } from "vue";
+import { SHOW_ALERT } from "@/store/mutations-types";
 import {
-  SHOW_ALERT,
-} from "@/store/mutations-types";
-import { CHANGE_PROJECT_PUT, REGISTER_PROJECT_POST } from "@/store/actions-types";
+  CHANGE_PROJECT_PUT,
+  REGISTER_PROJECT_POST,
+} from "@/store/actions-types";
+import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "FormProjects",
-  data() {
+  setup(props) {
+    const store = useStore();
+    const router = useRouter();
+    // create ref
+    const projectName = ref("");
+
+    // get id of url, for search projectName
+    if (props.id) {
+      const project = store.state.project.projects.find(
+        (proj) => proj.id == props.id
+      );
+      projectName.value = project?.name || "";
+    }
+
+    const notify = (
+      alertType: AlertTypes,
+      title: string,
+      text: string
+    ): void => {
+      store.commit(SHOW_ALERT, { alert: { id: 0, title, text, alertType } });
+    };
+
+    const salvar = () => {
+      if (projectName.value == "") {
+        notify(
+          AlertTypes.DANGER,
+          "Ops campo em branco!",
+          "Digite um nome valido para o projeto antes de tentar Salvar!"
+        );
+      } else {
+        if (props.id) {
+          let project = { id: props.id, name: projectName.value };
+          store.dispatch(CHANGE_PROJECT_PUT, project).then(() => {
+            notify(
+              AlertTypes.WARNING,
+              "Projeto Editado!",
+              "Pronto o nome do seu projeto foi editado! 👍"
+            );
+          });
+        } else {
+          store.dispatch(REGISTER_PROJECT_POST, projectName.value).then(() => {
+            notify(
+              AlertTypes.SUCCESS,
+              "Projeto salvo",
+              "Pronto o seu novo projeto está salvo ✌️"
+            );
+            projectName.value = "";
+            router.push("/projects");
+          });
+        }
+      }
+    };
+
     return {
-      projectName: "",
+      store,
+      projectName,
+      salvar,
     };
   },
   props: {
     id: {
       type: String,
-    },
-  },
-  mounted() {
-    if (this.id) {
-      const project = this.$store.state.project.projects.find(
-        (proj) => proj.id == this.id
-      );
-      this.projectName = project?.name || "";
-    }
-  },
-  mixins: [notifyMixin],
-  methods: {
-    salvar() {
-      if (this.projectName == "") {
-        this.$store.commit(SHOW_ALERT, {
-          alert: {
-            id: 0,
-            title: "Ops campo em branco!",
-            text: "Digite um nome valido para o projeto antes de tentar Salvar!",
-            alertType: AlertTypes.DANGER,
-          },
-        });
-        return;
-      }
-      if (this.id) {
-        let project = {
-          id: this.id,
-          name: this.projectName,
-        };
-        // Commit para editar em local storage
-        // this.$store.commit(EDIT_PROJECTS, { id: this.id, project });
-        // dispatch para editar em banco de dados remoto
-        this.$store.dispatch(CHANGE_PROJECT_PUT, project).then(() => {
-          this.notify(
-            AlertTypes.WARNING,
-            "Projeto Editado!",
-            "Pronto o nome do seu projeto foi editado! 👍"
-          );
-        });
-      } else {
-        // Commit para salvamento em local storage
-        // this.$store.commit(ADD_PROJECTS, { name: this.projectName });
-        // dispatch para salvamento em banco de dados remoto
-        this.$store.dispatch(REGISTER_PROJECT_POST, this.projectName).then(() => {
-          this.notify(
-            AlertTypes.SUCCESS,
-            "Projeto salvo",
-            "Pronto o seu novo projeto está salvo ✌️"
-          );
-          this.projectName = "";
-          this.$router.push("/projects");
-        });
-      }
     },
   },
 });
