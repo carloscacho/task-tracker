@@ -114,9 +114,9 @@ import { defineComponent } from "vue";
 import TotalTimer from "../formView/TotalTimer.vue";
 import HeaderPhone from "./HeaderPhone.vue";
 import CardText from "../Utils/CardText.vue";
-import { useStore } from "../../store";
 import ModalMsg from "../Utils/ModalMsg.vue";
-import { CLEAN_ALL, FINISH_WORK_DAY, INIT_WORK_DAY } from "@/store/mutations-types";
+import { useStore } from "../../store";
+import { CLEAN_ALL, INIT_WORK_DAY } from "@/store/mutations-types";
 import { REGISTER_TRACKER_POST } from "@/store/actions-types";
 
 export default defineComponent({
