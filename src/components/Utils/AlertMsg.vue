@@ -29,7 +29,7 @@ export default defineComponent({
     },
   },
   methods: {
-    getTypeAlert(pos:number) {
+    getTypeAlert(pos: number) {
       let tipo = this.$store.state.alerts[pos].alertType;
       switch (tipo) {
         case AlertTypes.SUCCESS:
@@ -57,10 +57,10 @@ export default defineComponent({
 }
 
 .slide-in-and-out-right {
-  -webkit-animation-delay: 0s, 3s ;
+  -webkit-animation-delay: 0s, 3s;
   -webkit-animation-duration: 0.5s, 0.8s;
   -webkit-animation-name: slide-in-right, slide-out-right;
-  
+
   /* -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both, slide-in-right 0.9s cubic-bezier(0.550, 0.085, 0.680, 0.530) 3s both reverse; */
   animation-delay: 0s, 3s;
   animation-duration: 0.5s, 0.8s;
@@ -88,24 +88,24 @@ export default defineComponent({
 @-webkit-keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(1000px);
-            transform: translateX(1000px);
+    transform: translateX(1000px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 @keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(1000px);
-            transform: translateX(1000px);
+    transform: translateX(1000px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
@@ -125,27 +125,25 @@ export default defineComponent({
 @-webkit-keyframes slide-out-right {
   0% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
   100% {
     -webkit-transform: translateX(1000px);
-            transform: translateX(1000px);
+    transform: translateX(1000px);
     opacity: 0;
   }
 }
 @keyframes slide-out-right {
   0% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
   100% {
     -webkit-transform: translateX(1000px);
-            transform: translateX(1000px);
+    transform: translateX(1000px);
     opacity: 0;
   }
 }
-
-
 </style>

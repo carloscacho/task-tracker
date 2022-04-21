@@ -28,7 +28,10 @@
               </span>
               <span class="isNotSmart">Editar</span>
             </router-link>
-            <button class="button ml-2 is-danger" @click="deleteProject(proj.id)">
+            <button
+              class="button ml-2 is-danger"
+              @click="deleteProject(proj.id)"
+            >
               <span class="icon is-small">
                 <i class="fa-solid fa-trash"></i>
               </span>
@@ -49,16 +52,16 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ListProjects",
-  mixins:[notifyMixin],
+  mixins: [notifyMixin],
   methods: {
     deleteProject(id: string) {
-      this.$store.commit("deleteProject", {id})
+      this.$store.commit("deleteProject", { id });
       this.notify(
         AlertTypes.DANGER,
         "Projeto Removido",
         "Pronto foi removido! 👀, mas as atividades realizadas com ele permanecem! 🙌"
       );
-    }
+    },
   },
   computed: {
     getProjects() {

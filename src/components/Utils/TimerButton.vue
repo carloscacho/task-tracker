@@ -12,11 +12,11 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "TimerButton",
-  emits: ['action'],
+  emits: ["action"],
   methods: {
     action(): void {
-      this.$emit('action')
-    }
+      this.$emit("action");
+    },
   },
   props: {
     disableButton: {
@@ -33,7 +33,7 @@ export default defineComponent({
     color: {
       type: String,
       default: "",
-    }
+    },
   },
 });
 </script>

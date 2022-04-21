@@ -14,13 +14,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import SideBar from "./components/navigation/SideBar.vue";
-import AlertMsg from './components/Utils/AlertMsg.vue'
+import AlertMsg from "./components/Utils/AlertMsg.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     SideBar,
-    AlertMsg
+    AlertMsg,
   },
   data() {
     return {

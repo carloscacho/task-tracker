@@ -13,12 +13,12 @@ export default defineComponent({
   name: "TotalTimer",
   props: {
     total: {
-      type: Number
+      type: Number,
     },
     msg: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   components: {
     CardText,

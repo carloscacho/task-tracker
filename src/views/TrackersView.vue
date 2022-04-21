@@ -42,7 +42,7 @@ export default defineComponent({
     isEmptyOldList(): boolean {
       console.log(this.$store.state.OldTrackers);
       return this.$store.state.OldTrackers.length === 0;
-    }
+    },
   },
 });
 </script>
@@ -63,5 +63,4 @@ export default defineComponent({
     height: calc(100vh - 52px - 32px - 96px - 144px - 1.5rem);
   }
 }
-
 </style>

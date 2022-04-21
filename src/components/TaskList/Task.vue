@@ -5,12 +5,15 @@
         {{ item.description || "Tarefa sem descrição" }}
       </div>
       <div class="column is-3">
-        {{ item.project?.name || "N/D"}}
+        {{ item.project?.name || "N/D" }}
       </div>
       <div class="column is-3">
         <StopwatchView :timerInSeconds="item.timerInSeconds" />
       </div>
-      <div v-if="showBtns" class="column is-flex is-align-items-center is-justify-content-end">
+      <div
+        v-if="showBtns"
+        class="column is-flex is-align-items-center is-justify-content-end"
+      >
         <button class="button is-warning mr-2">
           <i class="fa fa-pencil"></i>
         </button>
@@ -39,10 +42,10 @@ import ModalMsg from "../Utils/ModalMsg.vue";
 
 export default defineComponent({
   name: "TaskItem",
-  data () {
+  data() {
     return {
-      showModalBool: false
-    }
+      showModalBool: false,
+    };
   },
   components: {
     StopwatchView,
@@ -54,23 +57,23 @@ export default defineComponent({
     },
     showBtns: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
     delete() {
       this.$store.commit("deleteItem", this.item);
     },
     showModal() {
-      this.showModalBool = true
+      this.showModalBool = true;
     },
     okModalDel() {
-      this.delete()
-      this.showModalBool = false
+      this.delete();
+      this.showModalBool = false;
     },
     cancelModalDel() {
-      this.showModalBool = false
-    }
+      this.showModalBool = false;
+    },
   },
 });
 </script>

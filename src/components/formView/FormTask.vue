@@ -18,11 +18,13 @@
         <div class="select">
           <select v-model="idProject">
             <option value="">Selecione um projeto</option>
-            <option 
+            <option
               :value="project.id"
               v-for="project in getProjects"
               :key="project.id"
-            >{{project.name}}</option>
+            >
+              {{ project.name }}
+            </option>
           </select>
         </div>
       </div>
@@ -46,16 +48,16 @@ export default defineComponent({
   data() {
     return {
       description: "",
-      idProject: ""
+      idProject: "",
     };
   },
   computed: {
     newDay() {
-      return this.$store.state.today !== ""
+      return this.$store.state.today !== "";
     },
-    getProjects(){
-      return this.$store.state.projects
-    }
+    getProjects() {
+      return this.$store.state.projects;
+    },
   },
   methods: {
     finishTask(timeStop: number): void {
@@ -63,7 +65,9 @@ export default defineComponent({
         id: new Date().toISOString() + Math.random().toString(),
         timerInSeconds: timeStop,
         description: this.description,
-        project: this.$store.state.projects.find(proj => proj.id == this.idProject)
+        project: this.$store.state.projects.find(
+          (proj) => proj.id == this.idProject
+        ),
       });
       this.description = "";
     },

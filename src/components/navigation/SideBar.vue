@@ -248,7 +248,8 @@ i {
 .link {
   color: #fff;
 }
-.link:hover, i:hover {
+.link:hover,
+i:hover {
   color: rgb(98, 147, 253);
 }
 .link.router-link-active {

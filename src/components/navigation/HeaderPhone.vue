@@ -2,14 +2,10 @@
   <nav class="navbar isSmart" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img
-          src="../../assets/icon-logo.png"
-          width="32"
-          height="40"
-        />
+        <img src="../../assets/icon-logo.png" width="32" height="40" />
         <span class="textMode">Task Tracker</span>
       </a>
-      <div class="btns is-flex is-justify-content-end is-align-self-center ">
+      <div class="btns is-flex is-justify-content-end is-align-self-center">
         <div>
           <i @click="changeModeLight" class="fa-solid fa-sun"></i>
           <i @click="changeMode" :class="buttonIcon"></i>

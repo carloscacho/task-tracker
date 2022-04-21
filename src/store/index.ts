@@ -73,7 +73,7 @@ export const store = createStore<State>({
       //state.data = [];
       state.totalTimer = 0;
       state.today = "";
-      state.alerts = []
+      state.alerts = [];
       //state.OldTrackers = []
     },
     alertShow(state, payload) {
