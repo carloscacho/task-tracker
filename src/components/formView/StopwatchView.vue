@@ -8,32 +8,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "StopwatchView",
+  setup(props) {
+    const timer = computed((): string =>
+      new Date(props.timerInSeconds * 1000).toISOString().substring(11, 19)
+    );
+
+    return {
+      timer,
+    };
+  },
   props: {
     timerInSeconds: {
       type: Number,
-      default: 0
+      default: 0,
     },
     msg: {
       type: String,
-      default: ""
-    }
-  },
-  computed: {
-    timer() : string {
-      return new Date(this.timerInSeconds * 1000)
-        .toISOString()
-        .substring(11, 19);
+      default: "",
     },
   },
+  computed: {},
 });
 </script>
 
 <style>
-  .display{
-    color: var(--text-primary);
-  }
+.display {
+  color: var(--text-primary);
+}
 </style>

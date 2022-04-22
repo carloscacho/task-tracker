@@ -34,40 +34,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { useStore } from "@/store";
+import { computed, defineComponent, ref } from "vue";
 import TimerMachine from "./TimerMachine.vue";
 
 export default defineComponent({
   name: "FormTask",
   emits: ["onSalveTask"],
-  components: {
-    TimerMachine,
-  },
-  data() {
-    return {
-      description: "",
-      idProject: ""
-    };
-  },
-  computed: {
-    newDay() {
-      return this.$store.state.today !== ""
-    },
-    getProjects(){
-      return this.$store.state.project.projects
-    }
-  },
-  methods: {
-    finishTask(timeStop: number): void {
-      this.$emit("onSalveTask", {
+  setup(props, context) {
+    const store = useStore()
+
+    const description = ref("")
+    const idProject = ref("")
+
+    const projects = computed(() => store.state.project.projects)
+    const newDay = computed(() => store.state.today !== "")
+    const getProjects = computed(() => store.state.project.projects)
+
+    const finishTask = (timeStop: number): void => {
+      context.emit("onSalveTask", {
         id: new Date().toISOString() + Math.random().toString(),
         timerInSeconds: timeStop,
-        description: this.description,
-        project: this.$store.state.project.projects.find(proj => proj.id == this.idProject)
+        description: description.value,
+        project: projects.value.find(proj => proj.id == idProject.value)
       });
-      this.description = "";
-    },
+      description.value = "";
+    }
+
+    return {
+      description,
+      idProject,
+      finishTask,
+      projects,
+      newDay,
+      getProjects
+    }
   },
+  components: {
+    TimerMachine,
+  }
 });
 </script>
 
